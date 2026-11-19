@@ -1,0 +1,4 @@
+# Kabuk betikleri her platformda LF kalmali (Windows'ta autocrlf bash betiklerini bozar).
+*.sh text eol=lf
+# PowerShell betikleri Windows'ta CRLF.
+*.ps1 text eol=crlf
