@@ -10,6 +10,8 @@ Her görevin sonunda sonucu kendiniz doğrularsınız:
 ./verify/run.sh all     # hepsi (özet tablo)
 ```
 
+Windows (PowerShell): `.\verify\run.ps1 m1` ve `.\verify\run.ps1 all`.
+
 ## Akış
 
 | # | Görev | Senaryo türü | Bob özelliği | Süre |
@@ -29,10 +31,22 @@ Bağımlılıklar: M4, M3'ün modunu kullanır. M8, önceki işlerin commit'lenm
 
 ## Kurulum
 
+macOS / Linux:
+
 ```bash
 ./setup.sh --scanners
 ./verify/run.sh m0
 ```
+
+Windows (PowerShell):
+
+```powershell
+.\setup.ps1 -Scanners
+.\verify\run.ps1 m0
+```
+
+> Windows'ta `*.sh` dosyaları çalışmaz; karşılıkları `setup.ps1`, `verify\run.ps1`, `scripts\scan.ps1`. Komut yazarken `python3` yerine `python` kullanın. Script çalıştırma engellenirse: `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`.
+> Windows kılavuzu: `KATILIMCI-KILAVUZU-WINDOWS.html`.
 
 ## Klasörler
 

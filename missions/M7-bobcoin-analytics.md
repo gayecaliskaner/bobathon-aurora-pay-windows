@@ -15,6 +15,8 @@ Küçük bir işi (ör. `services/core`'daki bir modülü açıklatmak) Bob Shel
 bob run --format json --max-cost <bobcoin> --max-turns <n> "<küçük bir iş>" > reports/bob-run.json
 ```
 
+Windows PowerShell 5.1'de `>` yönlendirmesi dosyayı UTF-16 yazabilir. Bunun yerine `bob run --format json ... | Out-File -Encoding utf8 reports\bob-run.json` kullanın (doğrulayıcı UTF-8 ve UTF-16'yı kabul eder, diğer araçlar için UTF-8 daha güvenlidir).
+
 Çıktıdaki `stats` bölümünde işin kaç tur sürdüğüne ve ne kadar tüketildiğine bakın. Aynı işi sınırı değiştirerek bir kez daha deneyin.
 
 ## Hamle 2 - Portaldan ve Bobalytics'ten okuyun, karar yazın

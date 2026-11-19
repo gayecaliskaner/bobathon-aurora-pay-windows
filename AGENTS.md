@@ -6,10 +6,11 @@ Atölye reposu (Aurora Pay Bobathon). Dokümanlar Türkçe, commit mesajları İ
 
 ## Komutlar
 - Kurulum: `PYTHON=/opt/homebrew/bin/python3.14 ./setup.sh --scanners` (`python3` PATH'te eskiyse `PYTHON` zorunlu; Python 3.10 EOL, kurulmaz).
-- Görev doğrulama (tek görev): `./verify/run.sh m2`. Hepsi: `./verify/run.sh all`. Doğrulayıcı yalnızca sonuca bakar.
-- Tek test: `.venv/bin/pytest verify/test_m2_incident.py::test_adi -p no:cacheprovider -o addopts=`. Düz `pytest` yalnızca `tests/` altını çalıştırır (`pytest.ini`).
+- Kurulum (Windows / PowerShell): `.\setup.ps1 -Scanners` (Python farklıysa `-Python <yol>`). Windows'ta `python3` Microsoft Store'a yönlendirir: `python` kullanın. Bash betikleri (`*.sh`) PowerShell'de çalışmaz.
+- Görev doğrulama (tek görev): `./verify/run.sh m2`. Hepsi: `./verify/run.sh all`. Doğrulayıcı yalnızca sonuca bakar. Windows: `.\verify\run.ps1 m2` / `.\verify\run.ps1 all`.
+- Tek test: `.venv/bin/pytest verify/test_m2_incident.py::test_adi -p no:cacheprovider -o addopts=`. Düz `pytest` yalnızca `tests/` altını çalıştırır (`pytest.ini`). Windows: `.venv\Scripts\pytest` (veya `.venv\Scripts\python -m pytest`).
 - Kapsam (CI ile aynı): `pytest --cov=services/core --cov-branch --cov-fail-under=85`.
-- Güvenlik taraması: `./scripts/scan.sh [--verbose]` (0 = temiz). semgrep `.venv-tools/bin/` içindedir, PATH'te değildir; aramayı `.venv-tools` → `.venv` → PATH sırasıyla yapın.
+- Güvenlik taraması: `./scripts/scan.sh [--verbose]` (0 = temiz). Windows: `.\scripts\scan.ps1 [--verbose]`. Mantık `scripts/scan.py` içindedir. semgrep `.venv-tools/bin/` (Windows: `.venv-tools\Scripts\`) içindedir, PATH'te değildir; aramayı `.venv-tools` → `.venv` → PATH sırasıyla yapın.
 - Lint/format aracı yapılandırılmamış. Mevcut stili koruyun.
 - Sunucu: `uvicorn services.core.main:app --host 127.0.0.1` (0.0.0.0 kullanmayın).
 

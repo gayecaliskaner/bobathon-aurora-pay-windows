@@ -77,3 +77,17 @@ It also runs `semgrep --version`, so a broken install still fails the check.
 | 2 | `Python 3.10+ gerekli.` | `python3` on PATH too old | `PYTHON=/opt/homebrew/bin/python3.14 ./setup.sh --scanners` |
 | 3 | `bob` not on PATH | Bob Shell not installed | `npm install -g @ibm/bob` |
 | 4 | semgrep "missing" | Installed in `.venv-tools`, not on PATH | Test now checks `.venv-tools/bin` first |
+
+---
+
+## Windows / PowerShell notes
+
+| # | Symptom | Root cause | Fix |
+|---|---------|-----------|-----|
+| W1 | `./verify/run.sh m0` finishes silently, nothing runs | PowerShell does not execute `.sh` files | `.\verify\run.ps1 m0` (or `python verify\run.py m0`) |
+| W2 | `.venv/bin/python` not found | Windows venv folder is `Scripts\` | `.venv\Scripts\python` |
+| W3 | `python3` opens Microsoft Store | Store alias | use `python` |
+| W4 | `pip install semgrep` fails building `ruamel.yaml.clib` | No wheel for Python 3.14+/3.15 | `setup.ps1 -Scanners` builds `.venv-tools` with Python 3.13/3.12/3.11 when available |
+| W5 | M0 semgrep check passed from another folder's PATH | test fell back to `shutil.which` | on Windows the check now looks only at `.venv-tools\Scripts` and `.venv\Scripts` |
+| W6 | M5 `scan.sh` needs bash | no bash on Windows | logic moved to `scripts/scan.py`; `scan.sh` and `scan.ps1` are thin wrappers |
+| W7 | `bob run ... > reports/bob-run.json` is UTF-16 | PowerShell 5.1 `>` encoding | pipe to `Out-File -Encoding utf8`; M7 check accepts UTF-8/UTF-16 |

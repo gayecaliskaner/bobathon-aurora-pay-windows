@@ -8,7 +8,7 @@ Aurora Bank'ın Instant Pay ekibine bu sabah katıldınız. İlk iş: repoyu aç
 
 ## Hamle 1 - Repoyu kur
 
-Facilitator'ın paylaştığı GitHub **template repo**dan **kendi hesabınızda** bir kopya oluşturun, klonlayın ve `./setup.sh --scanners` çalıştırın.
+Facilitator'ın paylaştığı GitHub **template repo**dan **kendi hesabınızda** bir kopya oluşturun, klonlayın ve `./setup.sh --scanners` çalıştırın (Windows/PowerShell: `.\setup.ps1 -Scanners`; doğrulama `.\verify\run.ps1 m0`).
 Klasörü Bob'da açın (IDE'de klasörü açın, Shell'de klasörün içinden başlatın).
 
 ## Hamle 2 - Bob'a sorun

@@ -37,7 +37,7 @@ def _reset_store():
 
 ## 4. Run and report
 
-- Run the single file: `.venv/bin/pytest tests/<file>.py -p no:cacheprovider -o addopts=`.
+- Run the single file: `.venv/bin/pytest tests/<file>.py -p no:cacheprovider -o addopts=` (Windows/PowerShell: `.venv\Scripts\pytest tests\<file>.py -p no:cacheprovider -o addopts=`).
 - Then run `pytest` (runs `tests/` only). For `services/core` coverage: `pytest --cov=services/core --cov-branch --cov-fail-under=85`.
 - If a test fails because production code is wrong, do not weaken the test and do not edit production code. Report the test name, expected vs actual, and the suspected location.
 - Finish with a short summary: tests added, results, coverage if measured.
