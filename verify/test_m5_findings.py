@@ -1,6 +1,7 @@
 """M5 - Bob Findings: SEC-317 A (koda ve altyapiya dair bulgular). Semgrep + Bob Findings paneli."""
 
 import re
+import sys
 
 import pytest
 from common import ROOT, SECRET_VALUES, read_text, run, source_files
@@ -24,8 +25,8 @@ def client():
 
 def test_semgrep_reports_zero_findings():
     """Semgrep taramasi 0 bulgu veriyor (./scripts/scan.sh)"""
-    scan = ROOT / "scripts" / "scan.sh"
-    result = run(["bash", str(scan)])
+    scan = ROOT / "scripts" / "scan.py"
+    result = run([sys.executable, str(scan)])
     if result.returncode == 2:
         pytest.fail("semgrep calistirilamadi -> ./setup.sh --scanners", pytrace=False)
     count = re.search(r"bulgu sayisi:\s*(\d+)", result.stdout)

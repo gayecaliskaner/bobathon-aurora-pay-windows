@@ -2,7 +2,7 @@
 """Aurora Pay - gorev dogrulayici.
 
 Kullanim (repo kokunden):
-    ./verify/run.sh m1        tek gorev
+    ./verify/run.sh m1        tek gorev           (Windows: .\\verify\\run.ps1 m1)
     ./verify/run.sh all       tum gorevler (ozet tablo)
 
 Dogrulayici Bob'a ne yazdiginiza bakmaz; yalnizca SONUCA bakar.
@@ -31,6 +31,8 @@ MISSIONS = {
     "m8": ("M8 GitHub teslimat", "test_m8_delivery.py"),
 }
 
+if os.name == "nt":
+    os.system("")  # Windows konsolunda ANSI renk (VT) destegini acar
 GREEN, RED, YELLOW, DIM, RESET = "\033[32m", "\033[31m", "\033[33m", "\033[2m", "\033[0m"
 if not sys.stdout.isatty() or os.environ.get("NO_COLOR"):
     GREEN = RED = YELLOW = DIM = RESET = ""
@@ -99,7 +101,7 @@ def run_mission(key: str) -> dict:
 
 def main(argv: list[str]) -> int:
     if len(argv) != 1 or (argv[0] != "all" and argv[0] not in MISSIONS):
-        print("Kullanim: ./verify/run.sh [m0|m1|m2|m3|m4|m5|m6|m7|m8|all]")
+        print("Kullanim: ./verify/run.sh [m0|m1|m2|m3|m4|m5|m6|m7|m8|all]   (Windows: .\\verify\\run.ps1 ...)")
         return 2
     keys = list(MISSIONS) if argv[0] == "all" else [argv[0]]
     results = [run_mission(k) for k in keys]

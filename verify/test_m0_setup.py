@@ -59,8 +59,12 @@ def test_git_available():
 
 def test_semgrep_installed():
     """semgrep kurulu (M5 icin)"""
-    # setup.sh --scanners installs semgrep into .venv-tools (same lookup as scripts/scan.sh)
-    candidates = [ROOT / ".venv-tools/bin/semgrep", ROOT / ".venv/bin/semgrep", shutil.which("semgrep")]
+    # setup.sh / setup.ps1 -Scanners installs semgrep into .venv-tools (same lookup as scripts/scan.py).
+    # PATH'e dusmeyin: baska bir klasorun semgrep'i yanlis pozitif verir (Windows dry-run'da goruldu).
+    bin_dir, suffix = ("Scripts", ".exe") if os.name == "nt" else ("bin", "")
+    candidates = [ROOT / ".venv-tools" / bin_dir / f"semgrep{suffix}", ROOT / ".venv" / bin_dir / f"semgrep{suffix}"]
+    if os.name != "nt":
+        candidates.append(shutil.which("semgrep"))
     semgrep = next((str(c) for c in candidates if c and os.access(c, os.X_OK)), None)
     ok = semgrep is not None and run([semgrep, "--version"]).returncode == 0
     assert ok, "semgrep yok  ->  ./setup.sh --scanners"

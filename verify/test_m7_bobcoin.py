@@ -9,6 +9,14 @@ RUN_JSON = ROOT / "reports" / "bob-run.json"
 NOTES = ROOT / "reports" / "bobcoin-notes.md"
 
 
+def _read_json_text(path) -> str:
+    """UTF-8 (BOM'lu/BOM'suz) ve UTF-16 (Windows PowerShell 5.1 '>' yonlendirmesi) dosyalarini okur."""
+    raw = path.read_bytes()
+    if raw.startswith((b"\xff\xfe", b"\xfe\xff")):
+        return raw.decode("utf-16", errors="replace")
+    return raw.decode("utf-8-sig", errors="replace")
+
+
 def _json_documents(text: str):
     """Tek bir JSON belgesi veya satir basina bir JSON (stream-json) kabul eder."""
     try:
@@ -20,7 +28,7 @@ def _json_documents(text: str):
 def test_bounded_run_output_saved():
     """reports/bob-run.json: 'bob run --format json' ciktisi gecerli JSON"""
     assert RUN_JSON.exists(), "reports/bob-run.json yok -> bob run --format json ... > reports/bob-run.json"
-    text = RUN_JSON.read_text(encoding="utf-8", errors="replace").strip()
+    text = _read_json_text(RUN_JSON).strip()
     assert len(text) >= 50, "cikti cok kisa; bob run gercekten calisti mi?"
     try:
         docs = _json_documents(text)
