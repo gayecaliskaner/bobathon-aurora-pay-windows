@@ -1,6 +1,6 @@
 # M4 - Kapsamlı test yazımı (kendi modunuzla)
 
-**Süre:** 25 dk | **Bob özelliği:** M3'te yazdığınız **Custom Mode + Rules + Skill**'in değeri | **Kontrol:** `./verify/run.sh m4`
+**Süre:** 25 dk | **Bob özelliği:** M3'te yazdığınız **Custom Mode + Rules + Skill**'in değeri | **Kontrol:** `./verify/run.sh m4` (Windows: `.\verify\run.ps1 m4`)
 
 ## Durum
 

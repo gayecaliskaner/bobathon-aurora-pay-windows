@@ -1,6 +1,6 @@
 # M1 - Dokümandan koda
 
-**Süre:** 25 dk | **Bob özelliği:** Plan / Agent modları, `@` ile bağlam, todo listesi | **Kontrol:** `./verify/run.sh m1`
+**Süre:** 25 dk | **Bob özelliği:** Plan / Agent modları, `@` ile bağlam, todo listesi | **Kontrol:** `./verify/run.sh m1` (Windows: `.\verify\run.ps1 m1`)
 
 ## Durum
 

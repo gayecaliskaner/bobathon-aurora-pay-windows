@@ -1,6 +1,6 @@
 # M3 - Kendi custom mode'unuzu yazın (Mode + Rules + Skill)
 
-**Süre:** 20 dk | **Bob özelliği:** **Custom Mode**, **Rules**, **Skills** | **Kontrol:** `./verify/run.sh m3`
+**Süre:** 20 dk | **Bob özelliği:** **Custom Mode**, **Rules**, **Skills** | **Kontrol:** `./verify/run.sh m3` (Windows: `.\verify\run.ps1 m3`)
 
 ## Durum
 

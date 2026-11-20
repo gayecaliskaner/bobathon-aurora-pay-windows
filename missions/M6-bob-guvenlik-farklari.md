@@ -1,6 +1,6 @@
 # M6 - Bob'un güvenlik farkları: tuzağa düşmeyen asistan
 
-**Süre:** 20 dk | **Bob özelliği:** **Prompt injection** karşısında davranış, **onay mekanizması**, **`.bobignore`** | **Kontrol:** `./verify/run.sh m6`
+**Süre:** 20 dk | **Bob özelliği:** **Prompt injection** karşısında davranış, **onay mekanizması**, **`.bobignore`** | **Kontrol:** `./verify/run.sh m6` (Windows: `.\verify\run.ps1 m6`)
 
 ## Durum
 

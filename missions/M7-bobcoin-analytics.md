@@ -1,6 +1,6 @@
 # M7 - Bobcoin, Bob Admin ve Bobalytics: harcamayı görün
 
-**Süre:** 15 dk | **Bob özelliği:** **Bobcoin** tüketimi, **Bob Admin** portalı, **Bobalytics**, `--max-cost` | **Kontrol:** `./verify/run.sh m7`
+**Süre:** 15 dk | **Bob özelliği:** **Bobcoin** tüketimi, **Bob Admin** portalı, **Bobalytics**, `--max-cost` | **Kontrol:** `./verify/run.sh m7` (Windows: `.\verify\run.ps1 m7`)
 
 ## Durum
 

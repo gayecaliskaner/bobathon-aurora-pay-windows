@@ -1,6 +1,6 @@
 # M5 - Bob Findings: bulguları görün, Bob'a düzelttirin
 
-**Süre:** 20 dk | **Bob özelliği:** **Bob Findings** paneli, **Fix with Bob**, `.devsecignore` | **Kontrol:** `./verify/run.sh m5`
+**Süre:** 20 dk | **Bob özelliği:** **Bob Findings** paneli, **Fix with Bob**, `.devsecignore` | **Kontrol:** `./verify/run.sh m5` (Windows: `.\verify\run.ps1 m5`)
 
 ## Durum
 
@@ -18,12 +18,12 @@ Canlıya çıkış öncesi pentest sonuçları geldi: [`docs/SECURITY-TICKET-317
 ## Hamle 1 - Bulguları görün
 
 **Bob Findings** panelini açın (Bob Security / DevSecOps paketi kuruluysa tarama sürekli çalışır, değilse komut paletinden taramayı başlatın).
-Bulguları listeleyin ve risklerine göre sıralayın. Kurulu değilse `./scripts/scan.sh --verbose` aynı bulguları Semgrep ile gösterir.
+Bulguları listeleyin ve risklerine göre sıralayın. Kurulu değilse `./scripts/scan.sh --verbose` (Windows: `.\scripts\scan.ps1 --verbose`) aynı bulguları Semgrep ile gösterir.
 
 ## Hamle 2 - Düzelttirin
 
 Bir bulguyu seçip **Fix with Bob** deyin. Bob, bulgu ayrıntılarıyla dolu bir görev başlatır. Sonra kalan bulguları toplu seçerek kapatın.
-İşiniz bitince `./scripts/scan.sh` **0 bulgu** vermeli.
+İşiniz bitince `./scripts/scan.sh` (Windows: `.\scripts\scan.ps1`) **0 bulgu** vermeli.
 
 ## Kabul kriteri
 

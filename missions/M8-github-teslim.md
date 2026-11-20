@@ -1,6 +1,6 @@
 # M8 - GitHub'a teslim: dal, commit, push, PR
 
-**Süre:** 15 dk | **Bob özelliği:** Bob ile **Git iş akışı** (commit mesajı, push, Pull Request) | **Kontrol:** `./verify/run.sh m8`
+**Süre:** 15 dk | **Bob özelliği:** Bob ile **Git iş akışı** (commit mesajı, push, Pull Request) | **Kontrol:** `./verify/run.sh m8` (Windows: `.\verify\run.ps1 m8`)
 
 ## Durum
 

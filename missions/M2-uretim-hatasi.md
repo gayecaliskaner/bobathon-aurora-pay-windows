@@ -1,6 +1,6 @@
 # M2 - Üretim hatası (Bob Shell / CLI)
 
-**Süre:** 20 dk | **Bob özelliği:** **Bob Shell / CLI** (`bob chat`, `bob run`) | **Kontrol:** `python fixtures/incident/repro.py`, sonra `./verify/run.sh m2`
+**Süre:** 20 dk | **Bob özelliği:** **Bob Shell / CLI** (`bob chat`, `bob run`) | **Kontrol:** `python fixtures/incident/repro.py`, sonra `./verify/run.sh m2` (Windows: `.\verify\run.ps1 m2`)
 
 ## Durum
 
