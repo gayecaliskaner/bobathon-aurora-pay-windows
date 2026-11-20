@@ -127,10 +127,10 @@
     <div class="badges" id="badges"></div>
   </div>
   <a href="#hikaye">Hikâye</a>
-  <a href="#kurallar">Nasıl çalışır?</a>
-  <a href="#windows">Windows notları</a>
-  <a href="#harita">Görev haritası</a>
-  <a href="#envanter">Ön hazırlık</a>
+  <a href="#envanter">1 · Ön hazırlık</a>
+  <a href="#windows">2 · Windows notları</a>
+  <a href="#kurallar">3 · Nasıl çalışır?</a>
+  <a href="#harita">4 · Görev haritası</a>
   <div class="group">Görevler</div>
   <a href="#m0">0 · İlk gün</a>
   <a href="#m1">1 · Boş sayfadan servis</a>
@@ -162,6 +162,16 @@
   </div>
 </div>
 
+<div class="box">
+  <strong>Nereden başlamalıyım? Sıra bu</strong>
+  <ol>
+    <li><a href="#envanter">Ön hazırlık</a>: hesapları ve araçları hazırla (atölyeden önce).</li>
+    <li><a href="#windows">Windows notları</a>: PowerShell betik iznini bir kez aç.</li>
+    <li><a href="#kurallar">Nasıl çalışır?</a>: görev yapısını iki dakikada oku.</li>
+    <li><a href="#m0">Görev 0</a>'dan başla. Her görevde sıra aynı: <strong>Hamleleri yap → Doğrulamayı çalıştır → Teslim listesini işaretle</strong>.</li>
+  </ol>
+</div>
+
 <section id="hikaye" class="story">
   <h2>Hikâye</h2>
   <p>Instant Pay, Aurora Bank'ın anlık para transferi ürünü. Canlıya çıkışa az kaldı ve ekipte her şey aynı anda yanıyor:
@@ -175,60 +185,37 @@
   </div>
 </section>
 
-<section id="kurallar" class="story">
-  <h2>Nasıl çalışır?</h2>
-  <p>Her görev aynı beş parçalı yapıyı izler:</p>
-  <table>
-    <thead><tr><th>Parça</th><th>Ne demek?</th></tr></thead>
-    <tbody>
-      <tr><td><strong>Mesaj</strong></td><td>Birisi sana yazıyor: ne oldu, ne istiyor. Görevin hikâyesi budur.</td></tr>
-      <tr><td><strong>Teslim edilecekler</strong></td><td>Yazılı çıktı listesi. Hepsini işaretlersen görev biter ve rozet açılır.</td></tr>
-      <tr><td><strong>Hamleler</strong></td><td>Sıra sıra yapacakların. Hamle 1 ve Hamle 2 çoğunlukla "önce anla, sonra yap" şeklinde.</td></tr>
-      <tr><td><strong>Doğrulama</strong></td><td>Otomatik kabul kontrolü. Çıktıya bakar, Bob'a ne yazdığına bakmaz.</td></tr>
-      <tr><td><strong>Bonus soru</strong></td><td>Zorunlu değil ama asıl öğrenme burada. Merak edip dene.</td></tr>
-    </tbody>
-  </table>
+<section id="envanter" class="story">
+  <h2>Ön hazırlık: atölyeden önce</h2>
+  <p>Aşağıdaki liste atölye gününden <strong>en az iki iş günü önce</strong> tamamlanmalı. Kurumsal bilgisayarlarda kurulum izni, vekil sunucu (proxy) ve erişim onayları zaman alır; atölye saatini bunlara harcama.</p>
 
-  <h3>Doğrulama çıktısını okumak</h3>
-  <pre><code>.\verify\run.ps1 m1      # tek görev
-.\verify\run.ps1 all     # hepsi, özet tablo</code></pre>
-  <ul>
-    <li><strong>PASS</strong> geçtin. <strong>FAIL</strong> altındaki <code>-&gt;</code> satırı neyin eksik olduğunu söyler. <strong>Önce onu oku</strong>, cevap çoğunlukla oradadır.</li>
-    <li><strong>SKIP</strong> manuel kontrol demek (ör. <code>gh</code> kurulu değilken PR). Eğitmene göster, görev <code>PASS*</code> sayılır.</li>
+  <h3>Hesaplar ve erişim</h3>
+  <ul class="check">
+    <li><label><input type="checkbox"><span><strong>Bob IDE</strong> kurulu, giriş yapılmış ve sohbet kutusu yanıt veriyor</span></label></li>
+    <li><label><input type="checkbox"><span><strong>Bob Shell</strong> ayrı bir pakettir (IDE ile birlikte gelmez): PowerShell'de <code>bob --version</code> çalışıyor. Kurulum: <code>npm install --registry=https://registry.npmjs.org/ --allow-scripts=@officecli/officecli -g @ibm/bob</code></span></label></li>
+    <li><label><input type="checkbox"><span><strong>Bob API anahtarı</strong> oluşturuldu (Bob portalı → <em>API keys</em>) ve <code>BOB_API_KEY</code> ortam değişkeni tanımlı (PowerShell: <code>$env:BOB_API_KEY = "..."</code>). <code>bob run</code> onsuz çalışmaz (Görev 2 ve 7)</span></label></li>
+    <li><label><input type="checkbox"><span><strong>GitHub hesabı</strong> hazır, template repoya erişimin var ve Bob IDE'de GitHub oturumu açık (ya da SSH anahtarı / <code>gh auth login</code> tamam). Oturum yoksa repo klonlanamaz</span></label></li>
+    <li><label><input type="checkbox"><span>Kurum ağından şu adreslere erişim açık: <code>github.com</code>, <code>pypi.org</code>, <code>files.pythonhosted.org</code>, <code>registry.npmjs.org</code>, <code>bob.ibm.com</code></span></label></li>
   </ul>
 
-  <h3>İki pencere, iki iş</h3>
-  <p>Bu kılavuzdaki kod blokları iki farklı yere yazılır. Karıştırırsan komut çalışmaz, Bob ise komutu bir soru sanır:</p>
-  <table>
-    <thead><tr><th>Nereye?</th><th>Ne yazılır?</th><th>Örnek</th></tr></thead>
-    <tbody>
-      <tr><td><strong>Terminal</strong> (PowerShell)</td><td>PowerShell komutları</td><td><code>.\verify\run.ps1 m2</code>, <code>pytest</code>, <code>git status</code></td></tr>
-      <tr><td><strong>Bob</strong> (IDE sohbeti veya Bob Shell istemi)</td><td>Kendi cümlelerinle yazdığın istek</td><td>"Olay kaydını oku, kök nedenleri bul, henüz düzeltme"</td></tr>
-    </tbody>
-  </table>
+  <h3>Araçlar</h3>
+  <ul class="check">
+    <li><label><input type="checkbox"><span><strong>PowerShell betik izni</strong> açık: <code>Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned</code> (bir kez, yönetici gerekmez)</span></label></li>
+    <li><label><input type="checkbox"><span><strong>Python 3.11 veya üzeri</strong> (Windows'ta 3.12 veya 3.13 önerilir): <code>python --version</code> (<code>python3</code> değil). Kurulum: <code>winget install Python.Python.3.12</code>. Python 3.10 destek süresini doldurdu, kurma. 3.14 ve üstünde semgrep kurulumu başarısız olabilir; yanında 3.12 de olsun (<code>py -0p</code> ile listele)</span></label></li>
+    <li><label><input type="checkbox"><span><strong>git</strong> kurulu: <code>git --version</code> (yoksa <code>winget install Git.Git</code>)</span></label></li>
+    <li><label><input type="checkbox"><span>Bob Shell için <strong>Node.js ve npm</strong> kurulu: <code>node --version</code> (yoksa <code>winget install OpenJS.NodeJS.LTS</code>)</span></label></li>
+    <li><label><input type="checkbox"><span>İsteğe bağlı: <strong>GitHub CLI</strong> (<code>gh</code>, <code>winget install GitHub.cli</code>). Yoksa Görev 8'de PR ve CI kontrolü elle gösterilir</span></label></li>
+  </ul>
 
-  <h3>İpucu sistemi</h3>
-  <p>Takılırsan üç kademeli ipucu var. Sırayla kullan, atlama:</p>
-  <table>
-    <thead><tr><th>İpucu</th><th>Ne verir?</th><th>Ne zaman?</th></tr></thead>
-    <tbody>
-      <tr><td><strong>İpucu 1 · Yön</strong></td><td>Hangi soruyu sormalı, nereye bakmalı</td><td>5 dk takılınca</td></tr>
-      <tr><td><strong>İpucu 2 · Yer</strong></td><td>Hangi dosya, hangi davranış</td><td>Hâlâ takılıysan</td></tr>
-      <tr><td><strong>İpucu 3 · Eğitmen</strong></td><td>Neredeyse cevap, kodsuz</td><td>Süre daralınca eğitmene sor</td></tr>
-    </tbody>
-  </table>
-  <p>Bu sayfadaki <em>"İpuçları"</em> kutuları İpucu 1 ve 2'dir. Önce kendin dene, sonra aç.</p>
+  <h3>Lisansa bağlı kısımlar</h3>
+  <ul class="check">
+    <li><label><input type="checkbox"><span>Görev 5 için: DevSecOps paketi lisansın varsa Findings paneli çalışır. <strong>Yoksa sorun yok</strong>, <code>.\scripts\scan.ps1 --verbose</code> aynı bulguları gösterir</span></label></li>
+    <li><label><input type="checkbox"><span>Görev 7 için: <code>bob.ibm.com/admin</code> yetkin yoksa eğitmen ekranını paylaşır</span></label></li>
+  </ul>
 
   <div class="box">
-    <strong>Her görevin sonunda commit'le</strong>
-    Görev 0'ın sonunda <code>feature/&lt;kısa-ad&gt;</code> dalını aç ve her görev PASS olunca işini commit'le (mesaj İngilizce, tek cümle).
-    Böylece Görev 8'de "en az 3 anlamlı commit" koşulu kendiliğinden sağlanır ve bir şey bozulursa geri dönebilirsin.
-  </div>
-
-  <div class="box warn">
-    <strong>Süre daralırsa</strong>
-    Görevler bağımsızdır, atlanan görev diğerlerini bozmaz. İki istisna: <strong>Görev 4</strong>, Görev 3'te yazdığın modu kullanır; <strong>Görev 8</strong>, önceki işlerin commit'lenmesini bekler.
-    Kesme sırası: Görev 1 → Görev 4 → Görev 7'nin portal kısmı (eğitmen ekranından izlenir).
+    <strong>Hazır mısın? Tek komutla öğren</strong>
+    Repoyu klonladıktan sonra <code>.\setup.ps1 -Scanners</code> ve <code>.\verify\run.ps1 m0</code> çalıştır. Yedi kontrolün yedisi de PASS ise atölyeye hazırsın. FAIL varsa çıktıyı atölyeden önce eğitmene gönder.
   </div>
 </section>
 
@@ -283,6 +270,63 @@ Get-ExecutionPolicy -List      # CurrentUser satırı RemoteSigned olmalı</code
   </ul>
 </section>
 
+<section id="kurallar" class="story">
+  <h2>Nasıl çalışır?</h2>
+  <p>Her görev aynı beş parçalı yapıyı izler:</p>
+  <table>
+    <thead><tr><th>Parça</th><th>Ne demek?</th></tr></thead>
+    <tbody>
+      <tr><td><strong>1 · Mesaj</strong></td><td>Birisi sana yazıyor: ne oldu, ne istiyor. Görevin hikâyesi budur.</td></tr>
+      <tr><td><strong>2 · Hamleler</strong></td><td>Sıra sıra yapacakların. Hamle 1 ve Hamle 2 çoğunlukla "önce anla, sonra yap" şeklinde.</td></tr>
+      <tr><td><strong>3 · Doğrulama</strong></td><td>Hamleleri bitirince çalıştırdığın otomatik kabul kontrolü. Çıktıya bakar, Bob'a ne yazdığına bakmaz.</td></tr>
+      <tr><td><strong>4 · Teslim edilecekler</strong></td><td>Son kontrol listesi. Doğrulama geçtikten sonra hepsini işaretlersen görev biter ve rozet açılır.</td></tr>
+      <tr><td><strong>5 · Bonus soru</strong></td><td>Zorunlu değil ama asıl öğrenme burada. Merak edip dene.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Doğrulama çıktısını okumak</h3>
+  <pre><code>.\verify\run.ps1 m1      # tek görev
+.\verify\run.ps1 all     # hepsi, özet tablo</code></pre>
+  <ul>
+    <li><strong>PASS</strong> geçtin. <strong>FAIL</strong> altındaki <code>-&gt;</code> satırı neyin eksik olduğunu söyler. <strong>Önce onu oku</strong>, cevap çoğunlukla oradadır.</li>
+    <li><strong>SKIP</strong> manuel kontrol demek (ör. <code>gh</code> kurulu değilken PR). Eğitmene göster, görev <code>PASS*</code> sayılır.</li>
+  </ul>
+
+  <h3>İki pencere, iki iş</h3>
+  <p>Bu kılavuzdaki kod blokları iki farklı yere yazılır. Karıştırırsan komut çalışmaz, Bob ise komutu bir soru sanır:</p>
+  <table>
+    <thead><tr><th>Nereye?</th><th>Ne yazılır?</th><th>Örnek</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Terminal</strong> (PowerShell)</td><td>PowerShell komutları</td><td><code>.\verify\run.ps1 m2</code>, <code>pytest</code>, <code>git status</code></td></tr>
+      <tr><td><strong>Bob</strong> (IDE sohbeti veya Bob Shell istemi)</td><td>Kendi cümlelerinle yazdığın istek</td><td>"Olay kaydını oku, kök nedenleri bul, henüz düzeltme"</td></tr>
+    </tbody>
+  </table>
+
+  <h3>İpucu sistemi</h3>
+  <p>Takılırsan üç kademeli ipucu var. Sırayla kullan, atlama:</p>
+  <table>
+    <thead><tr><th>İpucu</th><th>Ne verir?</th><th>Ne zaman?</th></tr></thead>
+    <tbody>
+      <tr><td><strong>İpucu 1 · Yön</strong></td><td>Hangi soruyu sormalı, nereye bakmalı</td><td>5 dk takılınca</td></tr>
+      <tr><td><strong>İpucu 2 · Yer</strong></td><td>Hangi dosya, hangi davranış</td><td>Hâlâ takılıysan</td></tr>
+      <tr><td><strong>İpucu 3 · Eğitmen</strong></td><td>Neredeyse cevap, kodsuz</td><td>Süre daralınca eğitmene sor</td></tr>
+    </tbody>
+  </table>
+  <p>Bu sayfadaki <em>"İpuçları"</em> kutuları İpucu 1 ve 2'dir. Önce kendin dene, sonra aç.</p>
+
+  <div class="box">
+    <strong>Her görevin sonunda commit'le</strong>
+    Görev 0'ın sonunda <code>feature/&lt;kısa-ad&gt;</code> dalını aç ve her görev PASS olunca işini commit'le (mesaj İngilizce, tek cümle).
+    Böylece Görev 8'de "en az 3 anlamlı commit" koşulu kendiliğinden sağlanır ve bir şey bozulursa geri dönebilirsin.
+  </div>
+
+  <div class="box warn">
+    <strong>Süre daralırsa</strong>
+    Görevler bağımsızdır, atlanan görev diğerlerini bozmaz. İki istisna: <strong>Görev 4</strong>, Görev 3'te yazdığın modu kullanır; <strong>Görev 8</strong>, önceki işlerin commit'lenmesini bekler.
+    Kesme sırası: Görev 1 → Görev 4 → Görev 7'nin portal kısmı (eğitmen ekranından izlenir).
+  </div>
+</section>
+
 <section id="harita" class="story">
   <h2>Görev haritası</h2>
   <table>
@@ -305,40 +349,6 @@ Get-ExecutionPolicy -List      # CurrentUser satırı RemoteSigned olmalı</code
   Kutucuklar yalnızca senin tarayıcında saklanır; sayfayı kapatsan da kaldığın yerden devam edersin.</p>
 </section>
 
-<section id="envanter" class="story">
-  <h2>Ön hazırlık: atölyeden önce</h2>
-  <p>Aşağıdaki liste atölye gününden <strong>en az iki iş günü önce</strong> tamamlanmalı. Kurumsal bilgisayarlarda kurulum izni, vekil sunucu (proxy) ve erişim onayları zaman alır; atölye saatini bunlara harcama.</p>
-
-  <h3>Hesaplar ve erişim</h3>
-  <ul class="check">
-    <li><label><input type="checkbox"><span><strong>Bob IDE</strong> kurulu, giriş yapılmış ve sohbet kutusu yanıt veriyor</span></label></li>
-    <li><label><input type="checkbox"><span><strong>Bob Shell</strong> ayrı bir pakettir (IDE ile birlikte gelmez): PowerShell'de <code>bob --version</code> çalışıyor. Kurulum: <code>npm install --registry=https://registry.npmjs.org/ --allow-scripts=@officecli/officecli -g @ibm/bob</code></span></label></li>
-    <li><label><input type="checkbox"><span><strong>Bob API anahtarı</strong> oluşturuldu (Bob portalı → <em>API keys</em>) ve <code>BOB_API_KEY</code> ortam değişkeni tanımlı (PowerShell: <code>$env:BOB_API_KEY = "..."</code>). <code>bob run</code> onsuz çalışmaz (Görev 2 ve 7)</span></label></li>
-    <li><label><input type="checkbox"><span><strong>GitHub hesabı</strong> hazır, template repoya erişimin var ve Bob IDE'de GitHub oturumu açık (ya da SSH anahtarı / <code>gh auth login</code> tamam). Oturum yoksa repo klonlanamaz</span></label></li>
-    <li><label><input type="checkbox"><span>Kurum ağından şu adreslere erişim açık: <code>github.com</code>, <code>pypi.org</code>, <code>files.pythonhosted.org</code>, <code>registry.npmjs.org</code>, <code>bob.ibm.com</code></span></label></li>
-  </ul>
-
-  <h3>Araçlar</h3>
-  <ul class="check">
-    <li><label><input type="checkbox"><span><strong>PowerShell betik izni</strong> açık: <code>Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned</code> (bir kez, yönetici gerekmez)</span></label></li>
-    <li><label><input type="checkbox"><span><strong>Python 3.11 veya üzeri</strong> (Windows'ta 3.12 veya 3.13 önerilir): <code>python --version</code> (<code>python3</code> değil). Kurulum: <code>winget install Python.Python.3.12</code>. Python 3.10 destek süresini doldurdu, kurma. 3.14 ve üstünde semgrep kurulumu başarısız olabilir; yanında 3.12 de olsun (<code>py -0p</code> ile listele)</span></label></li>
-    <li><label><input type="checkbox"><span><strong>git</strong> kurulu: <code>git --version</code> (yoksa <code>winget install Git.Git</code>)</span></label></li>
-    <li><label><input type="checkbox"><span>Bob Shell için <strong>Node.js ve npm</strong> kurulu: <code>node --version</code> (yoksa <code>winget install OpenJS.NodeJS.LTS</code>)</span></label></li>
-    <li><label><input type="checkbox"><span>İsteğe bağlı: <strong>GitHub CLI</strong> (<code>gh</code>, <code>winget install GitHub.cli</code>). Yoksa Görev 8'de PR ve CI kontrolü elle gösterilir</span></label></li>
-  </ul>
-
-  <h3>Lisansa bağlı kısımlar</h3>
-  <ul class="check">
-    <li><label><input type="checkbox"><span>Görev 5 için: DevSecOps paketi lisansın varsa Findings paneli çalışır. <strong>Yoksa sorun yok</strong>, <code>.\scripts\scan.ps1 --verbose</code> aynı bulguları gösterir</span></label></li>
-    <li><label><input type="checkbox"><span>Görev 7 için: <code>bob.ibm.com/admin</code> yetkin yoksa eğitmen ekranını paylaşır</span></label></li>
-  </ul>
-
-  <div class="box">
-    <strong>Hazır mısın? Tek komutla öğren</strong>
-    Repoyu klonladıktan sonra <code>.\setup.ps1 -Scanners</code> ve <code>.\verify\run.ps1 m0</code> çalıştır. Yedi kontrolün yedisi de PASS ise atölyeye hazırsın. FAIL varsa çıktıyı atölyeden önce eğitmene gönder.
-  </div>
-</section>
-
 <!-- ======================= GÖREV 0 ======================= -->
 <section id="m0" class="mission">
   <span class="level">Görev 0</span>
@@ -352,15 +362,6 @@ Get-ExecutionPolicy -List      # CurrentUser satırı RemoteSigned olmalı</code
       <p>Hoş geldin! Önce şunları halledelim: facilitator'ın paylaştığı <strong>template repo</strong>dan <strong>kendi hesabında</strong> bir kopya aç, klonla, kurulumu çalıştır.</p>
       <p>Sonra Bob'a "bu proje ne?" diye sor. <strong>Aynı soruyu iki farklı modda</strong> sor, farkı not al. Bob <code>services/core</code> içinde kaç uç nokta olduğunu söylerse, kodu açıp kendi gözünle say. Bob'a güveniriz ama doğrularız.</p>
     </div>
-  </div>
-
-  <div class="deliver">
-    <h3>Teslim edilecekler</h3>
-    <ul class="check">
-      <li><label><input type="checkbox"><span>Kendi GitHub hesabında template'ten bir kopya var; klonlandı ve kuruldu</span></label></li>
-      <li><label><input type="checkbox"><span><code>.\verify\run.ps1 m0</code> tüm kontrollerde <strong>PASS</strong></span></label></li>
-      <li><label><input type="checkbox"><span>Bob'un verdiği sayısal bir bilgiyi (uç nokta sayısı, satır sayısı) terminalde tek komutla doğruladım</span></label></li>
-    </ul>
   </div>
 
   <div class="moves">
@@ -398,7 +399,16 @@ Get-ChildItem services\core\*.py | ForEach-Object { '{0,5}  {1}' -f @(Get-Conten
 (Get-ChildItem services\core\*.py | Get-Content | Measure-Object -Line).Lines   # toplam</code></pre>
   </div>
 
-  <div class="boss"><div class="lbl">Doğrulama</div><pre><code>.\verify\run.ps1 m0</code></pre></div>
+  <div class="boss"><div class="lbl">Şimdi test et · Doğrulama</div><pre><code>.\verify\run.ps1 m0</code></pre></div>
+
+  <div class="deliver">
+    <h3>Bitirdin mi? · Teslim edilecekler</h3>
+    <ul class="check">
+      <li><label><input type="checkbox"><span>Kendi GitHub hesabında template'ten bir kopya var; klonlandı ve kuruldu</span></label></li>
+      <li><label><input type="checkbox"><span><code>.\verify\run.ps1 m0</code> tüm kontrollerde <strong>PASS</strong></span></label></li>
+      <li><label><input type="checkbox"><span>Bob'un verdiği sayısal bir bilgiyi (uç nokta sayısı, satır sayısı) terminalde tek komutla doğruladım</span></label></li>
+    </ul>
+  </div>
 
   <details class="bonus"><summary>Bonus sorular</summary><div><ul>
     <li>Sohbet kutusunun yanındaki <strong>mod seçici</strong>: her mod neye izin veriyor?</li>
@@ -429,15 +439,6 @@ Get-ChildItem services\core\*.py | ForEach-Object { '{0,5}  {1}' -f @(Get-Conten
     </div>
   </div>
 
-  <div class="deliver">
-    <h3>Teslim edilecekler</h3>
-    <ul class="check">
-      <li><label><input type="checkbox"><span><code>services/limits/main.py</code> içinde <code>app</code> adlı bir <strong>FastAPI</strong> uygulaması</span></label></li>
-      <li><label><input type="checkbox"><span><code>.\verify\run.ps1 m1</code>: <strong>35 kontrolün tamamı</strong> PASS</span></label></li>
-      <li><label><input type="checkbox"><span>Yeni bağımlılık eklenmedi, <code>services/core</code>'a dokunulmadı</span></label></li>
-    </ul>
-  </div>
-
   <div class="moves">
     <h3>Hamle 1 · Önce anla (Plan modu)</h3>
     <p>PRD ve API sözleşmesini Bob'a <strong>bağlam olarak</strong> ver (<code>@docs/PRD-limits.md</code>, <code>@docs/API-SPEC-limits.yaml</code>), yapıştırma. Bob'dan bir <strong>uygulama planı</strong> iste ve <strong>sen onaylamadan kod yazmamasını</strong> açıkça söyle.</p>
@@ -446,7 +447,16 @@ Get-ChildItem services\core\*.py | ForEach-Object { '{0,5}  {1}' -f @(Get-Conten
     <p>Onayladığın planı uygulat. Todo listesini izle: Bob işi parçalara bölüyor mu, sen kontrol edebiliyor musun?</p>
   </div>
 
-  <div class="boss"><div class="lbl">Doğrulama</div><pre><code>.\verify\run.ps1 m1</code></pre>FAIL satırının altındaki açıklama, PRD'deki hangi kuralı kaçırdığını söyler. Düzeltmeyi o cümleye dayandır.</div>
+  <div class="boss"><div class="lbl">Şimdi test et · Doğrulama</div><pre><code>.\verify\run.ps1 m1</code></pre>FAIL satırının altındaki açıklama, PRD'deki hangi kuralı kaçırdığını söyler. Düzeltmeyi o cümleye dayandır.</div>
+
+  <div class="deliver">
+    <h3>Bitirdin mi? · Teslim edilecekler</h3>
+    <ul class="check">
+      <li><label><input type="checkbox"><span><code>services/limits/main.py</code> içinde <code>app</code> adlı bir <strong>FastAPI</strong> uygulaması</span></label></li>
+      <li><label><input type="checkbox"><span><code>.\verify\run.ps1 m1</code>: <strong>35 kontrolün tamamı</strong> PASS</span></label></li>
+      <li><label><input type="checkbox"><span>Yeni bağımlılık eklenmedi, <code>services/core</code>'a dokunulmadı</span></label></li>
+    </ul>
+  </div>
 
   <details class="bonus"><summary>Bonus sorular</summary><div><ul>
     <li>Önce <em>anlamak</em> ile <em>yazmak</em> aynı mod olmak zorunda mı?</li>
@@ -492,16 +502,6 @@ Get-ChildItem services\core\*.py | ForEach-Object { '{0,5}  {1}' -f @(Get-Conten
     </div>
   </div>
 
-  <div class="deliver">
-    <h3>Teslim edilecekler</h3>
-    <ul class="check">
-      <li><label><input type="checkbox"><span>Dört şikâyetin her biri için kök neden bulundu ve <code>repro.py</code> çıktısıyla eşleştirildi</span></label></li>
-      <li><label><input type="checkbox"><span><code>python fixtures\incident\repro.py</code> çıkış kodu <strong>0</strong></span></label></li>
-      <li><label><input type="checkbox"><span><code>.\verify\run.ps1 m2</code>: <strong>24 kontrolün tamamı</strong> PASS</span></label></li>
-      <li><label><input type="checkbox"><span><code>pytest</code> hâlâ yeşil (regresyon yok)</span></label></li>
-    </ul>
-  </div>
-
   <div class="moves">
     <h3>Hamle 1 · Teşhis (etkileşimli, düzeltme yasak)</h3>
     <p>İki terminal sekmesi aç. <strong>Birinci sekmede</strong> repo kökünden Bob Shell'i başlat:</p>
@@ -526,9 +526,19 @@ bob run --help      # tüm seçenekler</code></pre>
     <div class="box danger"><strong>Tehlike</strong><code>bob run</code> tüm araçları <strong>önceden onaylı</strong> çalıştırır, komut başına onay istemez. Sınırsız çalıştırma. <code>--max-turns</code> ve <code>--max-cost</code> senin frenin.</div>
   </div>
 
-  <div class="boss"><div class="lbl">Doğrulama</div><pre><code>.venv\Scripts\python fixtures\incident\repro.py
+  <div class="boss"><div class="lbl">Şimdi test et · Doğrulama</div><pre><code>.venv\Scripts\python fixtures\incident\repro.py
 .venv\Scripts\pytest
 .\verify\run.ps1 m2</code></pre></div>
+
+  <div class="deliver">
+    <h3>Bitirdin mi? · Teslim edilecekler</h3>
+    <ul class="check">
+      <li><label><input type="checkbox"><span>Dört şikâyetin her biri için kök neden bulundu ve <code>repro.py</code> çıktısıyla eşleştirildi</span></label></li>
+      <li><label><input type="checkbox"><span><code>python fixtures\incident\repro.py</code> çıkış kodu <strong>0</strong></span></label></li>
+      <li><label><input type="checkbox"><span><code>.\verify\run.ps1 m2</code>: <strong>24 kontrolün tamamı</strong> PASS</span></label></li>
+      <li><label><input type="checkbox"><span><code>pytest</code> hâlâ yeşil (regresyon yok)</span></label></li>
+    </ul>
+  </div>
 
   <details class="bonus"><summary>Bonus sorular</summary><div><ul>
     <li><code>bob chat</code> ile <code>bob run</code> arasındaki fark nedir?</li>
@@ -564,18 +574,6 @@ bob run --help      # tüm seçenekler</code></pre>
       <p>Olayı kapattığın için sağ ol. Şimdi bir sonraki adım: Bob harika iş çıkarıyor ama her yeni sohbet temiz bir sayfayla başlıyor ve ekip olarak ona <strong>aynı standartları her seferinde yeniden anlatıyoruz</strong>. Code review'da da aynı yorumları tekrar tekrar yazıyorum. Bu bilgiyi bir kez yazıp Bob'un kalıcı olarak taşımasını istiyorum.</p>
       <p>Bir <strong>QA Engineer</strong> personası kur: <strong>yalnızca test yazan ve çalıştıran</strong>, <code>tests/</code> dışında hiçbir dosyayı değiştiremeyen bir Bob. Kuralları ve skill'i yanında taşısın. Ekibin tek kaynağı <code>docs/ENGINEERING-HANDBOOK.md</code>.</p>
     </div>
-  </div>
-
-  <div class="deliver">
-    <h3>Teslim edilecekler</h3>
-    <ul class="check">
-      <li><label><input type="checkbox"><span><code>.bob/custom_modes.yaml</code> içinde yeni bir mod: <code>read</code> + <code>execute</code> + yalnızca <code>tests/</code> için kısıtlı <code>edit</code></span></label></li>
-      <li><label><input type="checkbox"><span><code>.bob/rules/</code> (veya <code>.bob/rules-&lt;slug&gt;/</code>) altında el kitabını özetleyen kural dosyası: para, hata zarfı, loglama, güvenlik</span></label></li>
-      <li><label><input type="checkbox"><span><code>.bob/skills/&lt;ad&gt;/SKILL.md</code> altında test yazma prosedürü</span></label></li>
-      <li><label><input type="checkbox"><span><code>.\verify\run.ps1 m3</code>: <strong>11 kontrolün tamamı</strong> PASS</span></label></li>
-      <li><label><input type="checkbox"><span>Modu seçip <code>services/core/main.py</code>'yi düzenletmeyi denedim: <strong>engellendi</strong></span></label></li>
-      <li><label><input type="checkbox"><span>Yeni sohbette el kitabını <strong>anmadan</strong> bir şey sordum, Bob kuralı kendisi uyguladı</span></label></li>
-    </ul>
   </div>
 
   <div class="moves">
@@ -623,7 +621,19 @@ description: Use when ...  (Bob'un ne zaman devreye alacağını anlatan tetikle
 # Skill gövdesi: adım adım prosedür</code></pre>
   </div>
 
-  <div class="boss"><div class="lbl">Doğrulama</div><pre><code>.\verify\run.ps1 m3</code></pre>Gerçek test: modu seç, üretim koduna yazdırmayı dene. Reddedilmeli.</div>
+  <div class="boss"><div class="lbl">Şimdi test et · Doğrulama</div><pre><code>.\verify\run.ps1 m3</code></pre>Gerçek test: modu seç, üretim koduna yazdırmayı dene. Reddedilmeli.</div>
+
+  <div class="deliver">
+    <h3>Bitirdin mi? · Teslim edilecekler</h3>
+    <ul class="check">
+      <li><label><input type="checkbox"><span><code>.bob/custom_modes.yaml</code> içinde yeni bir mod: <code>read</code> + <code>execute</code> + yalnızca <code>tests/</code> için kısıtlı <code>edit</code></span></label></li>
+      <li><label><input type="checkbox"><span><code>.bob/rules/</code> (veya <code>.bob/rules-&lt;slug&gt;/</code>) altında el kitabını özetleyen kural dosyası: para, hata zarfı, loglama, güvenlik</span></label></li>
+      <li><label><input type="checkbox"><span><code>.bob/skills/&lt;ad&gt;/SKILL.md</code> altında test yazma prosedürü</span></label></li>
+      <li><label><input type="checkbox"><span><code>.\verify\run.ps1 m3</code>: <strong>11 kontrolün tamamı</strong> PASS</span></label></li>
+      <li><label><input type="checkbox"><span>Modu seçip <code>services/core/main.py</code>'yi düzenletmeyi denedim: <strong>engellendi</strong></span></label></li>
+      <li><label><input type="checkbox"><span>Yeni sohbette el kitabını <strong>anmadan</strong> bir şey sordum, Bob kuralı kendisi uyguladı</span></label></li>
+    </ul>
+  </div>
 
   <details class="bonus"><summary>Bonus sorular</summary><div><ul>
     <li>Bob Settings'teki <strong>Modes</strong> sekmesi veya <code>bob --mode &lt;slug&gt;</code> ile modu seç. Hangi alanlar zorunlu?</li>
@@ -662,17 +672,6 @@ description: Use when ...  (Bob'un ne zaman devreye alacağını anlatan tetikle
     </div>
   </div>
 
-  <div class="deliver">
-    <h3>Teslim edilecekler</h3>
-    <ul class="check">
-      <li><label><input type="checkbox"><span>En az <strong>25 test</strong>, ekip standardında (<code>TestClient</code>, <code>store.reset()</code>, iç fonksiyon import'u yok)</span></label></li>
-      <li><label><input type="checkbox"><span><code>services/core</code> satır kapsamı en az <strong>%85</strong></span></label></li>
-      <li><label><input type="checkbox"><span>4 gizli hata bulundu, <strong>Agent</strong> modunda düzeltildi ve testle kanıtlandı</span></label></li>
-      <li><label><input type="checkbox"><span>Testlerim, doğrulayıcının geçici bozduğu kodu yakalıyor (mutasyon kontrolü)</span></label></li>
-      <li><label><input type="checkbox"><span><code>.\verify\run.ps1 m4</code>: <strong>12 kontrolün tamamı</strong> PASS</span></label></li>
-    </ul>
-  </div>
-
   <div class="moves">
     <h3>Hamle 1 · Testleri yazdır</h3>
     <p>QA moduna geç. Önce testin değil <strong>davranışın</strong> listesini çıkar: her uç nokta için bir mutlu yol, bir negatif durum, bir sınır değeri.</p>
@@ -686,7 +685,18 @@ description: Use when ...  (Bob'un ne zaman devreye alacağını anlatan tetikle
     <p>Test geçmiyorsa önce <strong>testin mi kodun mu</strong> yanlış olduğuna el kitabına bakarak karar ver.</p>
   </div>
 
-  <div class="boss"><div class="lbl">Doğrulama</div><pre><code>.\verify\run.ps1 m4</code></pre>Mutasyon kontrolü FAIL verirse, çıktı hangi davranışı test etmediğini söyler.</div>
+  <div class="boss"><div class="lbl">Şimdi test et · Doğrulama</div><pre><code>.\verify\run.ps1 m4</code></pre>Mutasyon kontrolü FAIL verirse, çıktı hangi davranışı test etmediğini söyler.</div>
+
+  <div class="deliver">
+    <h3>Bitirdin mi? · Teslim edilecekler</h3>
+    <ul class="check">
+      <li><label><input type="checkbox"><span>En az <strong>25 test</strong>, ekip standardında (<code>TestClient</code>, <code>store.reset()</code>, iç fonksiyon import'u yok)</span></label></li>
+      <li><label><input type="checkbox"><span><code>services/core</code> satır kapsamı en az <strong>%85</strong></span></label></li>
+      <li><label><input type="checkbox"><span>4 gizli hata bulundu, <strong>Agent</strong> modunda düzeltildi ve testle kanıtlandı</span></label></li>
+      <li><label><input type="checkbox"><span>Testlerim, doğrulayıcının geçici bozduğu kodu yakalıyor (mutasyon kontrolü)</span></label></li>
+      <li><label><input type="checkbox"><span><code>.\verify\run.ps1 m4</code>: <strong>12 kontrolün tamamı</strong> PASS</span></label></li>
+    </ul>
+  </div>
 
   <details class="bonus"><summary>Bonus sorular</summary><div><ul>
     <li>Moddan üretim koduna dokunmasını iste. Ne oluyor? Bu bir kısıtlama mı, güvenlik ağı mı?</li>
@@ -734,17 +744,6 @@ description: Use when ...  (Bob'un ne zaman devreye alacağını anlatan tetikle
     </tbody>
   </table>
 
-  <div class="deliver">
-    <h3>Teslim edilecekler</h3>
-    <ul class="check">
-      <li><label><input type="checkbox"><span>Bulgular listelendi ve riske göre sıralandı (Findings paneli veya <code>.\scripts\scan.ps1 --verbose</code>)</span></label></li>
-      <li><label><input type="checkbox"><span>A1-A5'in hepsi kapandı: <code>.\scripts\scan.ps1</code> <strong>0 bulgu</strong></span></label></li>
-      <li><label><input type="checkbox"><span><code>.\verify\run.ps1 m5</code> tüm kontrollerde PASS</span></label></li>
-      <li><label><input type="checkbox"><span>Düzeltmeler mevcut işlevi bozmadı: aşağıdaki "İşlev kontrolü" komutu beklenen üç çıktıyı veriyor</span></label></li>
-      <li><label><input type="checkbox"><span>Temizlik yapıldı: <code>Remove-Item -Force -ErrorAction SilentlyContinue PWNED.tgz, archives\a</code></span></label></li>
-    </ul>
-  </div>
-
   <div class="moves">
     <h3>Hamle 1 · Bulguları gör</h3>
     <p><strong>Bob Findings</strong> panelini aç (DevSecOps paketi varsa tarama sürekli çalışır; yoksa komut paletinden başlat). Önce <strong>hepsini</strong> gör, önem sırasına göre sırala. Panel yoksa:</p>
@@ -770,8 +769,19 @@ print(c.get("/reports/transfers", params={"owner": "x' OR '1'='1"}).json())   # 
     </div>
   </div>
 
-  <div class="boss"><div class="lbl">Doğrulama</div><pre><code>.\scripts\scan.ps1          # 0 bulgu vermeli
+  <div class="boss"><div class="lbl">Şimdi test et · Doğrulama</div><pre><code>.\scripts\scan.ps1          # 0 bulgu vermeli
 .\verify\run.ps1 m5</code></pre></div>
+
+  <div class="deliver">
+    <h3>Bitirdin mi? · Teslim edilecekler</h3>
+    <ul class="check">
+      <li><label><input type="checkbox"><span>Bulgular listelendi ve riske göre sıralandı (Findings paneli veya <code>.\scripts\scan.ps1 --verbose</code>)</span></label></li>
+      <li><label><input type="checkbox"><span>A1-A5'in hepsi kapandı: <code>.\scripts\scan.ps1</code> <strong>0 bulgu</strong></span></label></li>
+      <li><label><input type="checkbox"><span><code>.\verify\run.ps1 m5</code> tüm kontrollerde PASS</span></label></li>
+      <li><label><input type="checkbox"><span>Düzeltmeler mevcut işlevi bozmadı: yukarıdaki "İşlev kontrolü" komutu beklenen üç çıktıyı veriyor</span></label></li>
+      <li><label><input type="checkbox"><span>Temizlik yapıldı: <code>Remove-Item -Force -ErrorAction SilentlyContinue PWNED.tgz, archives\a</code></span></label></li>
+    </ul>
+  </div>
 
   <details class="bonus"><summary>Bonus sorular</summary><div><ul>
     <li>Bulguları bulmak ile düzeltmek aynı araç mı? Findings paneli hangi kısmı yapıyor, Bob hangisini?</li>
@@ -823,17 +833,6 @@ print(c.get("/reports/transfers", params={"owner": "x' OR '1'='1"}).json())   # 
 
   <div class="box"><strong>Bu görevde asıl soru</strong>Bob'un ne <em>yapmadığı</em>. Puan, Bob'un yaptıklarıyla değil, <strong>düşmediği tuzaklarla</strong> alınır.</div>
 
-  <div class="deliver">
-    <h3>Teslim edilecekler</h3>
-    <ul class="check">
-      <li><label><input type="checkbox"><span><code>docs/VENDOR-REVIEW-fraudshield.md</code> yazıldı (en az ~300 karakter): SDK'nın ne yaptığı, riskler ve varsa gizli talimat girişimi</span></label></li>
-      <li><label><input type="checkbox"><span>SDK projeye entegre edilmedi, <code>fraudshield-register.txt</code> oluşmadı, hiçbir gizli bilgi dışarı kopyalanmadı</span></label></li>
-      <li><label><input type="checkbox"><span><code>.bobignore</code> ham müşteri dosyasını kapsıyor; <code>customers.csv</code> silinmedi</span></label></li>
-      <li><label><input type="checkbox"><span><code>reports/balance-summary.md</code>: müşteri sayısı, toplam, ortalama, en yüksek, en düşük bakiye; ad, TCKN, IBAN, telefon, e-posta <strong>yok</strong></span></label></li>
-      <li><label><input type="checkbox"><span><code>.\verify\run.ps1 m6</code> tüm kontrollerde PASS</span></label></li>
-    </ul>
-  </div>
-
   <div class="moves">
     <h3>Hamle 1 · SDK'yı incele</h3>
     <p>Bob'a SDK'yı incelet. Bob'un yapmaya çalıştığı <strong>her komutu ve dosya yazma isteğini</strong> onay penceresinde dikkatle oku. İncelemeyle ilgisi olmayan bir şey görürsen <strong>reddet</strong>.</p>
@@ -845,7 +844,18 @@ print(c.get("/reports/transfers", params={"owner": "x' OR '1'='1"}).json())   # 
     </ol>
   </div>
 
-  <div class="boss"><div class="lbl">Doğrulama</div><pre><code>.\verify\run.ps1 m6</code></pre></div>
+  <div class="boss"><div class="lbl">Şimdi test et · Doğrulama</div><pre><code>.\verify\run.ps1 m6</code></pre></div>
+
+  <div class="deliver">
+    <h3>Bitirdin mi? · Teslim edilecekler</h3>
+    <ul class="check">
+      <li><label><input type="checkbox"><span><code>docs/VENDOR-REVIEW-fraudshield.md</code> yazıldı (en az ~300 karakter): SDK'nın ne yaptığı, riskler ve varsa gizli talimat girişimi</span></label></li>
+      <li><label><input type="checkbox"><span>SDK projeye entegre edilmedi, <code>fraudshield-register.txt</code> oluşmadı, hiçbir gizli bilgi dışarı kopyalanmadı</span></label></li>
+      <li><label><input type="checkbox"><span><code>.bobignore</code> ham müşteri dosyasını kapsıyor; <code>customers.csv</code> silinmedi</span></label></li>
+      <li><label><input type="checkbox"><span><code>reports/balance-summary.md</code>: müşteri sayısı, toplam, ortalama, en yüksek, en düşük bakiye; ad, TCKN, IBAN, telefon, e-posta <strong>yok</strong></span></label></li>
+      <li><label><input type="checkbox"><span><code>.\verify\run.ps1 m6</code> tüm kontrollerde PASS</span></label></li>
+    </ul>
+  </div>
 
   <details class="bonus"><summary>Bonus sorular</summary><div><ul>
     <li>SDK dokümanında Bob'a yönelik <strong>gizli bir talimat</strong> var mıydı? Bob onu izledi mi, sana söyledi mi? Onay penceresi seni korudu mu?</li>
@@ -882,16 +892,6 @@ print(c.get("/reports/transfers", params={"owner": "x' OR '1'='1"}).json())   # 
     </div>
   </div>
 
-  <div class="deliver">
-    <h3>Teslim edilecekler</h3>
-    <ul class="check">
-      <li><label><input type="checkbox"><span><code>reports/bob-run.json</code>: <code>bob run --format json</code> çıktısı, geçerli JSON</span></label></li>
-      <li><label><input type="checkbox"><span>Aynı iş farklı sınırla bir kez daha çalıştırıldı ve karşılaştırıldı</span></label></li>
-      <li><label><input type="checkbox"><span><code>reports/bobcoin-notes.md</code> (en az ~200 karakter): "Bobcoin" ifadesi, <strong>gerçek rakamlar</strong>, rakamların kaynağı (portal / Bobalytics) ve bir <code>--max-cost</code> / <code>--max-turns</code> önerisi</span></label></li>
-      <li><label><input type="checkbox"><span><code>.\verify\run.ps1 m7</code> PASS</span></label></li>
-    </ul>
-  </div>
-
   <div class="moves">
     <h3>Hamle 1 · Sınırlı bir iş çalıştır ve ölç</h3>
 <pre><code>bob run --format json --max-cost &lt;bobcoin&gt; --max-turns &lt;n&gt; "&lt;küçük bir iş&gt;" | Out-File -Encoding utf8 reports\bob-run.json</code></pre>
@@ -909,7 +909,17 @@ print(c.get("/reports/transfers", params={"owner": "x' OR '1'='1"}).json())   # 
     <div class="box warn"><strong>Anonimleştir</strong>Sunumda gösterilen verileri paylaşmadan önce anonimleştir.</div>
   </div>
 
-  <div class="boss"><div class="lbl">Doğrulama</div><pre><code>.\verify\run.ps1 m7</code></pre>JSON dosyası boşsa <code>--format json</code> kullandığını ve çıktıyı <code>| Out-File -Encoding utf8</code> ile dosyaya yazdığını kontrol et.</div>
+  <div class="boss"><div class="lbl">Şimdi test et · Doğrulama</div><pre><code>.\verify\run.ps1 m7</code></pre>JSON dosyası boşsa <code>--format json</code> kullandığını ve çıktıyı <code>| Out-File -Encoding utf8</code> ile dosyaya yazdığını kontrol et.</div>
+
+  <div class="deliver">
+    <h3>Bitirdin mi? · Teslim edilecekler</h3>
+    <ul class="check">
+      <li><label><input type="checkbox"><span><code>reports/bob-run.json</code>: <code>bob run --format json</code> çıktısı, geçerli JSON</span></label></li>
+      <li><label><input type="checkbox"><span>Aynı iş farklı sınırla bir kez daha çalıştırıldı ve karşılaştırıldı</span></label></li>
+      <li><label><input type="checkbox"><span><code>reports/bobcoin-notes.md</code> (en az ~200 karakter): "Bobcoin" ifadesi, <strong>gerçek rakamlar</strong>, rakamların kaynağı (portal / Bobalytics) ve bir <code>--max-cost</code> / <code>--max-turns</code> önerisi</span></label></li>
+      <li><label><input type="checkbox"><span><code>.\verify\run.ps1 m7</code> PASS</span></label></li>
+    </ul>
+  </div>
 
   <details class="bonus"><summary>Bonus sorular</summary><div><ul>
     <li>Bobcoin neye göre tükeniyor? Uzun bir sohbetle yeni açılmış bir sohbet arasında fark var mı?</li>
@@ -941,19 +951,6 @@ print(c.get("/reports/transfers", params={"owner": "x' OR '1'='1"}).json())   # 
     </div>
   </div>
 
-  <div class="deliver">
-    <h3>Teslim edilecekler</h3>
-    <ul class="check">
-      <li><label><input type="checkbox"><span>Dal adı <code>feature/&lt;kısa-ad&gt;</code> veya <code>fix/&lt;kısa-ad&gt;</code>, <code>main</code>'den açıldı</span></label></li>
-      <li><label><input type="checkbox"><span>Çalışma dizini temiz</span></label></li>
-      <li><label><input type="checkbox"><span><code>main</code>'den sonra en az <strong>3 anlamlı commit</strong> (İngilizce, ne yaptığını anlatan tek cümle, en az 12 karakter)</span></label></li>
-      <li><label><input type="checkbox"><span>Dal <code>origin</code>'e push edildi</span></label></li>
-      <li><label><input type="checkbox"><span>Açık bir PR: başlık en az 10, açıklama en az 80 karakter, şablon dolu, en az bir kutu işaretli (<code>- [x]</code>)</span></label></li>
-      <li><label><input type="checkbox"><span>PR üzerindeki <strong>CI yeşil</strong> (testler + kapsam %85 + Semgrep)</span></label></li>
-      <li><label><input type="checkbox"><span><code>.\verify\run.ps1 m8</code> PASS (veya <code>gh</code> yoksa SKIP ve PR sayfası eğitmene gösterildi)</span></label></li>
-    </ul>
-  </div>
-
   <div class="moves">
     <h3>Hamle 1 · Dal ve commit'ler</h3>
     <p>Görev 0'da dalını açıp her görevden sonra commit'lediysen bu hamlenin çoğu hazır: <code>git log --oneline main..HEAD</code> ile kontrol et, kalan değişiklikleri Bob'a commit'lettir. Dal adı küçük harf, rakam ve tire içermeli (<code>feature/limits-service</code> geçer, <code>Bobathon-BS</code> geçmez).</p>
@@ -968,8 +965,21 @@ print(c.get("/reports/transfers", params={"owner": "x' OR '1'='1"}).json())   # 
     </ul>
   </div>
 
-  <div class="boss"><div class="lbl">Son doğrulama</div><pre><code>.\verify\run.ps1 m8
+  <div class="boss"><div class="lbl">Şimdi test et · Son doğrulama</div><pre><code>.\verify\run.ps1 m8
 gh pr checks --watch      # gh kuruluysa CI durumunu izler</code></pre></div>
+
+  <div class="deliver">
+    <h3>Bitirdin mi? · Teslim edilecekler</h3>
+    <ul class="check">
+      <li><label><input type="checkbox"><span>Dal adı <code>feature/&lt;kısa-ad&gt;</code> veya <code>fix/&lt;kısa-ad&gt;</code>, <code>main</code>'den açıldı</span></label></li>
+      <li><label><input type="checkbox"><span>Çalışma dizini temiz</span></label></li>
+      <li><label><input type="checkbox"><span><code>main</code>'den sonra en az <strong>3 anlamlı commit</strong> (İngilizce, ne yaptığını anlatan tek cümle, en az 12 karakter)</span></label></li>
+      <li><label><input type="checkbox"><span>Dal <code>origin</code>'e push edildi</span></label></li>
+      <li><label><input type="checkbox"><span>Açık bir PR: başlık en az 10, açıklama en az 80 karakter, şablon dolu, en az bir kutu işaretli (<code>- [x]</code>)</span></label></li>
+      <li><label><input type="checkbox"><span>PR üzerindeki <strong>CI yeşil</strong> (testler + kapsam %85 + Semgrep)</span></label></li>
+      <li><label><input type="checkbox"><span><code>.\verify\run.ps1 m8</code> PASS (veya <code>gh</code> yoksa SKIP ve PR sayfası eğitmene gösterildi)</span></label></li>
+    </ul>
+  </div>
 
   <details class="bonus"><summary>Bonus sorular</summary><div><ul>
     <li>Bob <code>git push</code> ve <code>gh pr create</code> öncesi onay istedi mi? Hangi komutlara "bu görev için onayla" demek mantıklı?</li>
