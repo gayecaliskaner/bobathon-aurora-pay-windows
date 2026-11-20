@@ -41,6 +41,10 @@
   code{font:13px/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:var(--surface);border:1px solid var(--border);padding:1px 5px;border-radius:3px}
   pre{background:var(--code-bg);color:var(--code-fg);padding:14px 16px;border-radius:6px;overflow:auto;margin:10px 0}
   pre code{background:none;border:0;padding:0;color:inherit;font-size:13px}
+  pre{position:relative}
+  .copy-btn{position:absolute;top:6px;right:6px;font:12px/1 -apple-system,"Segoe UI",system-ui,sans-serif;color:#c9d1d9;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.25);border-radius:4px;padding:5px 9px;cursor:pointer}
+  .copy-btn:hover{background:rgba(255,255,255,.18)}
+  .copy-btn.ok{color:#7ee787;border-color:#7ee787}
   table{border-collapse:collapse;width:100%;margin:12px 0;font-size:14px}
   th,td{border:1px solid var(--border);padding:7px 10px;text-align:left;vertical-align:top}
   th{background:var(--surface)}
@@ -1141,6 +1145,48 @@ gh pr checks --watch      # gh kuruluysa CI durumunu izler</code></pre></div>
       });
     });
     update();
+  })();
+
+  // Her kod bloğuna "Kopyala" düğmesi ekler.
+  (function () {
+    function fallbackCopy(text) {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch (e) {}
+      document.body.removeChild(ta);
+      return ok;
+    }
+
+    function copyText(text) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        return navigator.clipboard.writeText(text).then(function () { return true; },
+          function () { return fallbackCopy(text); });
+      }
+      return Promise.resolve(fallbackCopy(text));
+    }
+
+    Array.prototype.forEach.call(document.querySelectorAll('pre'), function (pre) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'copy-btn';
+      btn.textContent = 'Kopyala';
+      btn.setAttribute('aria-label', 'Kod bloğunu panoya kopyala');
+      btn.addEventListener('click', function () {
+        var code = pre.querySelector('code') || pre;
+        var text = code.textContent.replace(/\s+$/, '');
+        copyText(text).then(function (ok) {
+          btn.textContent = ok ? 'Kopyalandı' : 'Kopyalanamadı';
+          btn.classList.toggle('ok', ok);
+          setTimeout(function () { btn.textContent = 'Kopyala'; btn.classList.remove('ok'); }, 1500);
+        });
+      });
+      pre.appendChild(btn);
+    });
   })();
 </script>
 </body>
