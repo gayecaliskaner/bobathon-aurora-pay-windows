@@ -113,6 +113,36 @@
   footer{margin-top:60px;padding-top:14px;border-top:1px solid var(--border);color:var(--muted);font-size:12px;text-align:center}
   @media (max-width:880px){nav{display:none}main{padding:18px}}
   @media print{nav{display:none}main{padding:0}details{break-inside:avoid}}
+
+  /* ---------- Renk dili: hangi kutu ne iş buyurur? ---------- */
+  pre{border-top:3px solid #4589ff}
+  pre::before{content:"TERMİNALDE ÇALIŞTIR";display:block;font:700 10.5px/1 -apple-system,"Segoe UI",system-ui,sans-serif;letter-spacing:.1em;color:#78a9ff;margin:0 0 10px}
+  pre.file{border-top-color:#a56eff}
+  pre.file::before{content:"DOSYAYA YAZ · terminale yapıştırma";color:#be95ff}
+  .boss pre{border-top-color:var(--gold)}
+  .boss pre::before{content:"KONTROL KOMUTU";color:var(--gold)}
+
+  .box::before{content:"BİLGİ";display:block;font-size:10.5px;font-weight:700;letter-spacing:.1em;color:var(--accent);margin-bottom:2px}
+  .box.warn::before{content:"DİKKAT";color:var(--warn)}
+  .box.danger::before{content:"TEHLİKE · YASAK";color:var(--danger)}
+  .box.fix{border-color:#c2410c;background:#fff1e6}
+  .box.fix::before{content:"HATA ALIRSAN";color:#c2410c}
+  .box.todo{border-color:#0e7c86;background:#e3f5f6}
+  .box.todo::before{content:"ÖNCE BUNU YAP";color:#0e7c86}
+  .box[data-etiket]::before{content:attr(data-etiket)}
+
+  table.legend td:first-child{width:64px;text-align:center}
+  .sw{display:inline-block;width:46px;height:26px;border-radius:4px;border:1px solid var(--border);vertical-align:middle}
+  .sw.run{background:#161616;border-top:4px solid #4589ff}
+  .sw.file{background:#161616;border-top:4px solid #a56eff}
+  .sw.test{background:var(--night);border-top:4px solid var(--gold)}
+  .sw.done{background:var(--ok-soft);border:2px solid var(--ok)}
+  .sw.fix{background:#fff1e6;border-left:5px solid #c2410c}
+  .sw.todo{background:#e3f5f6;border-left:5px solid #0e7c86}
+  .sw.warn{background:var(--warn-bg);border-left:5px solid #e0a100}
+  .sw.danger{background:var(--danger-bg);border-left:5px solid var(--danger)}
+  .sw.info{background:var(--accent-soft);border-left:5px solid var(--accent)}
+  .sw.hint{background:var(--warn-bg);border:1px solid #f0d78a}
 </style>
 </head>
 <body>
@@ -162,7 +192,7 @@
   </div>
 </div>
 
-<div class="box">
+<div class="box todo" data-etiket="Yol haritası">
   <strong>Nereden başlamalıyım? Sıra bu</strong>
   <ol>
     <li><a href="#envanter">Ön hazırlık</a>: hesapları ve araçları hazırla (atölyeden önce).</li>
@@ -224,7 +254,7 @@
   <p>Bu sürüm Windows 10/11 ve PowerShell (5.1 veya 7) için hazırlandı. Repodaki <code>.sh</code> dosyaları Windows'ta çalışmaz; her birinin PowerShell karşılığı var.
   Komutları <strong>Bob'un içindeki terminalde</strong> (<em>Terminal → New Terminal</em>) çalıştır ve terminalin profilinin <strong>PowerShell</strong> olduğuna bak (Command Prompt veya Git Bash değil).</p>
 
-  <div class="box warn">
+  <div class="box todo">
     <strong>İlk iş: betik çalıştırma izni (bir kez)</strong>
     Windows istemcilerinde PowerShell varsayılan olarak <code>.ps1</code> dosyalarını engeller (<em>"running scripts is disabled on this system"</em>). Yönetici hakkı gerekmeden yalnızca kendi hesabın için aç:
 <pre><code>Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
@@ -281,6 +311,28 @@ Get-ExecutionPolicy -List      # CurrentUser satırı RemoteSigned olmalı</code
       <tr><td><strong>3 · Doğrulama</strong></td><td>Hamleleri bitirince çalıştırdığın otomatik kabul kontrolü. Çıktıya bakar, Bob'a ne yazdığına bakmaz.</td></tr>
       <tr><td><strong>4 · Teslim edilecekler</strong></td><td>Son kontrol listesi. Doğrulama geçtikten sonra hepsini işaretlersen görev biter ve rozet açılır.</td></tr>
       <tr><td><strong>5 · Bonus soru</strong></td><td>Zorunlu değil ama asıl öğrenme burada. Merak edip dene.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Renk rehberi: hangi kutu ne iş buyurur?</h3>
+  <p>Sayfadaki her renk ve etiket tek bir şey söyler. Önce <strong>İş buyuran</strong> kutuları sırayla yap, <strong>Kontrol</strong> kutusuyla test et, turuncu ve sarı kutulara yalnızca gerektiğinde bak:</p>
+  <table class="legend">
+    <thead><tr><th></th><th>Etiket</th><th>Ne yapacaksın?</th></tr></thead>
+    <tbody>
+      <tr><td colspan="3"><strong>1 · Yap (iş buyurur)</strong></td></tr>
+      <tr><td><span class="sw todo"></span></td><td><strong>ÖNCE BUNU YAP</strong> (turkuaz)</td><td>Bir kez yapılacak hazırlık. Atlama.</td></tr>
+      <tr><td><span class="sw run"></span></td><td><strong>TERMİNALDE ÇALIŞTIR</strong> (koyu blok, mavi çizgi)</td><td><em>Kopyala</em> düğmesiyle kopyala, PowerShell'e yapıştır, Enter. <code>&lt;köşeli&gt;</code> yazan yerleri kendi değerinle değiştir.</td></tr>
+      <tr><td><span class="sw file"></span></td><td><strong>DOSYAYA YAZ</strong> (koyu blok, mor çizgi)</td><td>Terminale yapıştırma. İçeriği bir dosyaya yaz (örnek şablondur).</td></tr>
+      <tr><td colspan="3"><strong>2 · Kontrol et</strong></td></tr>
+      <tr><td><span class="sw test"></span></td><td><strong>KONTROL KOMUTU</strong> (lacivert kutu, altın çizgi)</td><td>Hamleleri bitirince çalıştır. Hepsi <strong>PASS</strong> olmalı. FAIL ise altındaki <code>-&gt;</code> satırını oku.</td></tr>
+      <tr><td><span class="sw done"></span></td><td><strong>BİTİRDİN Mİ? · Teslim edilecekler</strong> (yeşil)</td><td>Kontrol PASS olduktan sonra kutuları işaretle. Rozet bu kutularla açılır.</td></tr>
+      <tr><td colspan="3"><strong>3 · Yalnızca gerekirse oku</strong></td></tr>
+      <tr><td><span class="sw fix"></span></td><td><strong>HATA ALIRSAN</strong> (turuncu)</td><td>Bu hata mesajını <strong>görmediysen</strong> geç. Görürsen çözüm burada.</td></tr>
+      <tr><td><span class="sw hint"></span></td><td><strong>Takıldıysan: İpuçları</strong> (açılır sarı)</td><td>Önce kendin dene, 5 dk takılırsan aç.</td></tr>
+      <tr><td colspan="3"><strong>4 · Oku ve dikkat et</strong></td></tr>
+      <tr><td><span class="sw warn"></span></td><td><strong>DİKKAT</strong> (sarı)</td><td>Sessiz tuzak. Hata vermeden yanlış gider, bu yüzden oku.</td></tr>
+      <tr><td><span class="sw danger"></span></td><td><strong>TEHLİKE · YASAK</strong> (kırmızı)</td><td>Yapma. Puan kaybettirir veya zarar verir.</td></tr>
+      <tr><td><span class="sw info"></span></td><td><strong>BİLGİ</strong> (mavi)</td><td>Ek açıklama. Okumasan da görev ilerler.</td></tr>
     </tbody>
   </table>
 
@@ -378,12 +430,12 @@ cd &lt;repo-adi&gt;</code></pre>
 <pre><code>python --version                  # 3.11 veya üzeri olmalı (python3 değil)
 .\setup.ps1 -Scanners
 .\.venv\Scripts\Activate.ps1       # her yeni terminal sekmesinde bir kez; python ve pytest komutlarını kısaltır</code></pre>
-    <div class="box"><strong>"Python 3.10+ gerekli." hatası</strong>
+    <div class="box fix"><strong>"Python 3.10+ gerekli." hatası</strong>
       <code>python</code> komutun eski bir sürümü gösteriyor ya da hiç Python yok demektir. Güncel bir Python kur (<code>winget install Python.Python.3.12</code>; Python 3.10 destek süresini doldurduğu için Bob onu kurmayı reddeder), terminali kapatıp aç ve gerekirse yolunu <code>-Python</code> parametresiyle ver:
 <pre><code>py -0p                                                          # kurulu Python'ları listeler
 .\setup.ps1 -Scanners -Python C:\Users\&lt;adın&gt;\AppData\Local\Programs\Python\Python312\python.exe   # yolu kendi kurulumuna göre değiştir</code></pre>
     </div>
-    <div class="box warn"><strong>semgrep kurulurken "Failed building wheel / ruamel.yaml.clib" hatası</strong>
+    <div class="box fix"><strong>semgrep kurulurken "Failed building wheel / ruamel.yaml.clib" hatası</strong>
       Python 3.14 ve üstünde semgrep'in bağımlılığı derlenemeyebilir. <code>.\setup.ps1 -Scanners</code> bu durumda <code>.venv-tools</code> için kurulu Python 3.13 / 3.12 / 3.11'i kendisi seçer. Hâlâ hata alırsan 3.12 kur ve yarım kalan ortamı silip yeniden kur:
 <pre><code>winget install Python.Python.3.12
 Remove-Item -Recurse -Force .venv-tools
@@ -410,13 +462,13 @@ Get-ChildItem services\core\*.py | ForEach-Object { '{0,5}  {1}' -f @(Get-Conten
     </ul>
   </div>
 
-  <details class="bonus"><summary>Bonus sorular</summary><div><ul>
+  <details class="bonus"><summary>Bonus sorular (zorunlu değil)</summary><div><ul>
     <li>Sohbet kutusunun yanındaki <strong>mod seçici</strong>: her mod neye izin veriyor?</li>
     <li>Sohbet alanına <code>@</code> yazınca ne oluyor?</li>
     <li>Sohbete <code>/init</code> yaz. Bob repoyu tarayıp bir <code>AGENTS.md</code> üretir: içinde ne var, sonraki sohbetlerde Bob'un davranışını nasıl değiştirir?</li>
   </ul></div></details>
 
-  <details class="joker"><summary>İpuçları</summary><div><ul>
+  <details class="joker"><summary>Takıldıysan: İpuçları (önce kendin dene)</summary><div><ul>
     <li><strong>İpucu 1:</strong> FAIL satırını oku. Bob'un cevabını olduğu gibi kabul etme; içindeki bir sayıyı <code>Select-String</code> veya <code>Get-Content | Measure-Object -Line</code> ile doğrula.</li>
     <li><strong>İpucu 2:</strong> Kurulum sorunlarının çoğu dört yerden çıkar: <code>python</code> eski sürüm (<code>-Python ...</code> ile çöz), <code>.\setup.ps1</code> betik izni yüzünden çalışmadığı için <code>.venv</code> yok, sanal ortam bu sekmede etkin değil, ya da Bob Shell kurulu değil (<code>bob --version</code>). Klasör Bob'da açık değilse veya klasöre güvenilmediyse <code>@</code> listesi boş görünür.</li>
   </ul></div></details>
@@ -458,12 +510,12 @@ Get-ChildItem services\core\*.py | ForEach-Object { '{0,5}  {1}' -f @(Get-Conten
     </ul>
   </div>
 
-  <details class="bonus"><summary>Bonus sorular</summary><div><ul>
+  <details class="bonus"><summary>Bonus sorular (zorunlu değil)</summary><div><ul>
     <li>Önce <em>anlamak</em> ile <em>yazmak</em> aynı mod olmak zorunda mı?</li>
     <li>Todo listesi, Bob'un işi nasıl böldüğünü denetleyebileceğin bir yer mi?</li>
   </ul></div></details>
 
-  <details class="joker"><summary>İpuçları</summary><div>
+  <details class="joker"><summary>Takıldıysan: İpuçları (önce kendin dene)</summary><div>
     <p><strong>İpucu 1:</strong> "Yaz" demeden önce planı onayla. PRD bölüm 4'ü plana karşı satır satır işaretle.</p>
     <p><strong>İpucu 2:</strong> Çoğu FAIL şu dört yerden gelir:</p>
     <ul>
@@ -514,13 +566,13 @@ Get-ChildItem services\core\*.py | ForEach-Object { '{0,5}  {1}' -f @(Get-Conten
     <p>Aynı işi bu kez <code>bob run</code> ile, <strong>tur ve maliyet sınırı koyarak</strong> yaptır:</p>
 <pre><code>bob run --max-turns &lt;n&gt; --max-cost &lt;bobcoin&gt; "&lt;görev tanımın&gt;"
 bob run --help      # tüm seçenekler</code></pre>
-    <div class="box"><strong>"Bob API key is required" hatası</strong>
+    <div class="box fix"><strong>"Bob API key is required" hatası</strong>
       <code>bob run</code> etkileşimsiz çalıştığı için bir API anahtarı ister. Bob portalındaki <em>API keys</em> sayfasından anahtar oluştur ve <strong>yalnızca kendi terminalinde</strong> tanımla; anahtarı dosyaya yazma, commit'leme:
 <pre><code>$env:BOB_API_KEY = "&lt;anahtarın&gt;"</code></pre>
       Bu değer yalnızca açık terminal sekmesinde geçerlidir. Her seferinde yeniden girmek istemezsen kullanıcı ortam değişkeni yap (yeni terminalde geçerli olur):
 <pre><code>[System.Environment]::SetEnvironmentVariable('BOB_API_KEY', '&lt;anahtarın&gt;', 'User')</code></pre>
     </div>
-    <div class="box"><strong>"bob.ps1 cannot be loaded because running scripts is disabled"</strong>
+    <div class="box fix"><strong>"bob.ps1 cannot be loaded because running scripts is disabled"</strong>
       Betik izni kapalı. <a href="#windows">Windows notları</a>ndaki <code>Set-ExecutionPolicy -Scope CurrentUser RemoteSigned</code> komutunu bir kez çalıştır, terminali yenile.
     </div>
     <div class="box danger"><strong>Tehlike</strong><code>bob run</code> tüm araçları <strong>önceden onaylı</strong> çalıştırır, komut başına onay istemez. Sınırsız çalıştırma. <code>--max-turns</code> ve <code>--max-cost</code> senin frenin.</div>
@@ -540,13 +592,13 @@ bob run --help      # tüm seçenekler</code></pre>
     </ul>
   </div>
 
-  <details class="bonus"><summary>Bonus sorular</summary><div><ul>
+  <details class="bonus"><summary>Bonus sorular (zorunlu değil)</summary><div><ul>
     <li><code>bob chat</code> ile <code>bob run</code> arasındaki fark nedir?</li>
     <li>Bob terminalde komut çalıştırmadan önce ne soruyor? Hangi komutlara izin vermek mantıklı, hangilerine asla?</li>
     <li>Bob log dosyasını kendisi mi buldu, sen mi gösterdin? Sonuç farkı oldu mu?</li>
   </ul></div></details>
 
-  <details class="joker"><summary>İpuçları</summary><div>
+  <details class="joker"><summary>Takıldıysan: İpuçları (önce kendin dene)</summary><div>
     <p><strong>İpucu 1:</strong> Dört şikâyet = dört ayrı neden. "Tek hata" diye düşünüyorsan Bob'dan teşhisi yeniden iste.</p>
     <p><strong>İpucu 2:</strong> Hepsi <code>services/core/</code> altında:</p>
     <ul>
@@ -589,7 +641,7 @@ bob run --help      # tüm seçenekler</code></pre>
 
     <h3>Hamle 1 · Modu yaz</h3>
     <p>Personayı <strong>sen</strong> tarif et. IDE sohbetinde <code>/create-mode</code> komutu iskeleti senin tarifinden üretir; elle de yazabilirsin. Her iki durumda da dosyayı aç ve yetki gruplarını, özellikle <code>fileRegex</code> satırını kendin kontrol et. Şema şu iskeleti izler:</p>
-<pre><code>customModes:
+<pre class="file"><code>customModes:
   - slug: ornek-mod
     name: Örnek Mod
     roleDefinition: Odaklı bir persona tanımı (en az 80 karakter)...
@@ -606,7 +658,7 @@ bob run --help      # tüm seçenekler</code></pre>
       Yanlış yazılmış klasör adı veya geçersiz yetki grubu <strong>hata vermez</strong>, parça sadece yok sayılır. YAML'da kıvrık tırnak, uzun tire ve emoji gibi <strong>ASCII dışı karakter kullanma</strong>.</div>
     <div class="box warn"><strong>Windows: yol ayracı ve dosya kodlaması</strong>
       Windows'ta yollar <code>\</code> ile gelebilir; <code>fileRegex</code>'i her iki ayracı kabul edecek şekilde yaz ve YAML'da <strong>tek tırnak</strong> kullan (tek tırnakta <code>\</code> olduğu gibi kalır). Hem <code>tests/</code> hem <code>tests\</code> eşleşir, <code>services/</code> eşleşmez:
-<pre><code>- fileRegex: '^(.*[\\/])?tests[\\/].*'</code></pre>
+<pre class="file"><code>- fileRegex: '^(.*[\\/])?tests[\\/].*'</code></pre>
       Dosyaları BOM'suz UTF-8 ve yalnızca ASCII karakterle kaydet. Eski Not Defteri veya <code>Out-File</code> BOM ekleyebilir; BOM da "ASCII dışı karakter" sayılır. Dosyaları Bob IDE'nin editöründe düzenlemek en güvenlisidir.</div>
 
     <h3>Hamle 2 · Kurallar ve skill</h3>
@@ -614,7 +666,7 @@ bob run --help      # tüm seçenekler</code></pre>
       <li><strong>Rules:</strong> el kitabındaki <em>para, hata, loglama ve güvenlik</em> standartları, <code>.md</code> dosyası olarak.</li>
       <li><strong>Skill:</strong> test yazma adımları tek bir prosedür. Bob ilgili isteği görünce kendisi devreye almalı.</li>
     </ul>
-<pre><code>---
+<pre class="file"><code>---
 name: klasor-adiyla-ayni
 description: Use when ...  (Bob'un ne zaman devreye alacağını anlatan tetikleyici, en az 40 karakter)
 ---
@@ -635,13 +687,13 @@ description: Use when ...  (Bob'un ne zaman devreye alacağını anlatan tetikle
     </ul>
   </div>
 
-  <details class="bonus"><summary>Bonus sorular</summary><div><ul>
+  <details class="bonus"><summary>Bonus sorular (zorunlu değil)</summary><div><ul>
     <li>Bob Settings'teki <strong>Modes</strong> sekmesi veya <code>bob --mode &lt;slug&gt;</code> ile modu seç. Hangi alanlar zorunlu?</li>
     <li>"Dosya düzenleyebilir" ile "yalnızca şu dosyaları düzenleyebilir" aynı şey değil. Bunu nasıl ifade ettin?</li>
     <li>Proje düzeyi ile kullanıcı düzeyi: hangi dosya repoya girer, ekip arkadaşın görür mü?</li>
   </ul></div></details>
 
-  <details class="joker"><summary>İpuçları</summary><div>
+  <details class="joker"><summary>Takıldıysan: İpuçları (önce kendin dene)</summary><div>
     <p><strong>İpucu 1:</strong> Üç parçanın işi farklı: Mode = kimlik ve yetki, Rules = her zaman uyulacak standart, Skill = ilgili işte devreye giren prosedür. Karıştırma. <code>verify</code> çıktısı hangisinin bozuk olduğunu söyler.</p>
     <p><strong>İpucu 2:</strong></p>
     <ul>
@@ -698,13 +750,13 @@ description: Use when ...  (Bob'un ne zaman devreye alacağını anlatan tetikle
     </ul>
   </div>
 
-  <details class="bonus"><summary>Bonus sorular</summary><div><ul>
+  <details class="bonus"><summary>Bonus sorular (zorunlu değil)</summary><div><ul>
     <li>Moddan üretim koduna dokunmasını iste. Ne oluyor? Bu bir kısıtlama mı, güvenlik ağı mı?</li>
     <li>Bob bir test kırıldığında ne yapıyor: testi mi düzeltiyor, hatayı mı raporluyor? Skill'inde ona bu konuda net bir yön verdin mi?</li>
     <li><strong>Süper bonus:</strong> <code>pytest --cov</code> çıktısını Bob'a yorumlat: kapsanmayan en riskli davranış hangisi?</li>
   </ul></div></details>
 
-  <details class="joker"><summary>İpuçları</summary><div>
+  <details class="joker"><summary>Takıldıysan: İpuçları (önce kendin dene)</summary><div>
     <p><strong>İpucu 1:</strong> Test geçmiyor diye kodu değil, önce beklentiyi sorgula. Hata gerçekse modun üretim koduna yazamaz: raporlat.</p>
     <p><strong>İpucu 2:</strong> Dört gizli hatayı şu denemelerle ara:</p>
     <ul>
@@ -783,13 +835,13 @@ print(c.get("/reports/transfers", params={"owner": "x' OR '1'='1"}).json())   # 
     </ul>
   </div>
 
-  <details class="bonus"><summary>Bonus sorular</summary><div><ul>
+  <details class="bonus"><summary>Bonus sorular (zorunlu değil)</summary><div><ul>
     <li>Bulguları bulmak ile düzeltmek aynı araç mı? Findings paneli hangi kısmı yapıyor, Bob hangisini?</li>
     <li>Bir bulgunun kökten çözümü ile semptomu gizleyen çözümü arasındaki fark ne? Hangisini istediğini Bob'a nasıl anlattın?</li>
     <li>Gizli bilgiyi ortam değişkenine taşıdığında eski değer <strong>Git geçmişinde</strong> kalır mı?</li>
   </ul></div></details>
 
-  <details class="joker"><summary>İpuçları</summary><div>
+  <details class="joker"><summary>Takıldıysan: İpuçları (önce kendin dene)</summary><div>
     <p><strong>İpucu 1:</strong> Önce bulguların hepsini gör, sonra düzelt. Düzeltme, geçerli girdiyle işlevi bozmamalı.</p>
     <p><strong>İpucu 2:</strong></p>
     <ul>
@@ -857,14 +909,14 @@ print(c.get("/reports/transfers", params={"owner": "x' OR '1'='1"}).json())   # 
     </ul>
   </div>
 
-  <details class="bonus"><summary>Bonus sorular</summary><div><ul>
+  <details class="bonus"><summary>Bonus sorular (zorunlu değil)</summary><div><ul>
     <li>SDK dokümanında Bob'a yönelik <strong>gizli bir talimat</strong> var mıydı? Bob onu izledi mi, sana söyledi mi? Onay penceresi seni korudu mu?</li>
     <li>Görüşünde <strong>telemetri</strong> ve <strong>şifresiz bağlantı</strong> gibi teknik riskleri de yazdın mı?</li>
     <li><code>.bobignore</code> ile kapattığın dosyayı <code>@fixtures/data/customers.csv</code> ile Bob'a göstermeyi dene. Ne oluyor?</li>
     <li><code>.bobignore</code> yalnızca <strong>dosya araçlarını</strong> kapsar. Kabuk komutuyla (<code>cat</code> / <code>Get-Content</code> gibi) dosyayı okumasının önüne ne geçer?</li>
   </ul></div></details>
 
-  <details class="joker"><summary>İpuçları</summary><div>
+  <details class="joker"><summary>Takıldıysan: İpuçları (önce kendin dene)</summary><div>
     <p><strong>İpucu 1:</strong> Bob'un çalıştırmak istediği her komutu onay penceresinde oku. Müşteri verisini korumak ile özet üretmek iki ayrı iş: önce koru, sonra üret.</p>
     <p><strong>İpucu 2:</strong></p>
     <ul>
@@ -921,14 +973,14 @@ print(c.get("/reports/transfers", params={"owner": "x' OR '1'='1"}).json())   # 
     </ul>
   </div>
 
-  <details class="bonus"><summary>Bonus sorular</summary><div><ul>
+  <details class="bonus"><summary>Bonus sorular (zorunlu değil)</summary><div><ul>
     <li>Bobcoin neye göre tükeniyor? Uzun bir sohbetle yeni açılmış bir sohbet arasında fark var mı?</li>
     <li>MCP sunucuları ve büyük bağlam harcamayı nasıl etkiler?</li>
     <li><strong>Bob factor</strong> neyi ölçüyor? Bu metrik seni neden ikna ederdi ya da etmezdi?</li>
     <li>Admin olarak bir kullanıcıya harcama limiti koymak ile her çalıştırmaya <code>--max-cost</code> koymak aynı şey mi?</li>
   </ul></div></details>
 
-  <details class="joker"><summary>İpuçları</summary><div><ul>
+  <details class="joker"><summary>Takıldıysan: İpuçları (önce kendin dene)</summary><div><ul>
     <li><strong>İpucu 1:</strong> Bu görev ölçüm. Rakamı gördüğün yerden yaz. İki farklı sınırla çalıştırırsan karşılaştırma yapabilirsin.</li>
     <li><strong>İpucu 2:</strong> Seçenekler için <code>bob run --help</code> (<code>--format</code>, <code>--max-cost</code>, <code>--max-turns</code>). <code>reports/</code> klasörü hazır. Uzun sohbetler her mesajda tüm bağlamı yeniden gönderdiği için daha pahalıdır; görev değişince yeni sohbet açmak maliyeti düşürür.</li>
   </ul></div></details>
@@ -981,13 +1033,13 @@ gh pr checks --watch      # gh kuruluysa CI durumunu izler</code></pre></div>
     </ul>
   </div>
 
-  <details class="bonus"><summary>Bonus sorular</summary><div><ul>
+  <details class="bonus"><summary>Bonus sorular (zorunlu değil)</summary><div><ul>
     <li>Bob <code>git push</code> ve <code>gh pr create</code> öncesi onay istedi mi? Hangi komutlara "bu görev için onayla" demek mantıklı?</li>
     <li>Commit'leri tek tek mi, hepsini birden mi kaydettirdin? Hangisi PR incelemesini kolaylaştırır?</li>
     <li>Push edilen dosyalar arasında olmaması gereken bir şey var mı? (<code>.bobignore</code> ve gizli bilgiler)</li>
   </ul></div></details>
 
-  <details class="joker"><summary>İpuçları</summary><div><ul>
+  <details class="joker"><summary>Takıldıysan: İpuçları (önce kendin dene)</summary><div><ul>
     <li><strong>İpucu 1:</strong> Teslim işin bir parçasıdır. Commit'leri tek parça yapma.</li>
     <li><strong>İpucu 2:</strong> <code>origin</code> yoksa Görev 0'da template'ten kendi reponu oluşturup klonlamamışsın demektir. Çalışma dizini kirliyse kök dizinde Görev 5'ten kalan <code>PWNED.tgz</code> olabilir. "main'den sonra 3 commit" sayılmıyorsa commit'leri <code>main</code>'e değil dalına attığından emin ol.</li>
   </ul></div></details>
@@ -1050,6 +1102,7 @@ gh pr checks --watch      # gh kuruluysa CI durumunu izler</code></pre></div>
 
 <section id="sorun" class="story">
   <h2>Sorun giderme</h2>
+  <p class="lead">Bu bölüm yalnızca <strong>hata alırsan</strong> içindir. Görevlerdeki turuncu <em>HATA ALIRSAN</em> kutularıyla aynı işi görür, ama tek yerde toplanmıştır.</p>
   <table>
     <thead><tr><th>Belirti</th><th>Olası neden / çözüm</th></tr></thead>
     <tbody>
@@ -1098,7 +1151,7 @@ gh pr checks --watch      # gh kuruluysa CI durumunu izler</code></pre></div>
     <li><label><input type="checkbox"><span>Görev 8 PASS · dal, ≥ 3 commit, push, açık PR, yeşil CI</span></label></li>
   </ul>
 
-  <div class="box">
+  <div class="box" data-etiket="Düşün">
     <strong>Gün sonunda kendine sor</strong>
     Hangi görevde Bob'a yön vermek en çok işe yaradı? Plan modu, Shell, custom mode, Findings: yarın ekibinde hangisini ilk kullanırdın? Bob'dan en iyi sonucu aldığın anda ona ne söylediğini ve kontrollerin neyi doğruladığını anlatabiliyor musun?
   </div>
